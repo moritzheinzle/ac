@@ -1,0 +1,91 @@
+# ====================================
+# Operating System Files
+# ====================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+
+# ====================================
+# Editors and IDEs
+# ====================================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ====================================
+# LaTeX / Academic Notes
+# (Ignores build artifacts, keeps .tex & .bib)
+# ====================================
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+
+# Uncomment if you don't want compiled PDFs tracked:
+# *.pdf
+
+# ====================================
+# C / C++ / Build Output
+# ====================================
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+build/
+bin/
+out/
+CMakeCache.txt
+CMakeFiles/
+
+# ====================================
+# Python
+# ====================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.venv/
+venv/
+env/
+.env
+
+# ====================================
+# Java / JVM
+# ====================================
+*.class
+*.jar
+*.war
+target/
+
+# ====================================
+# Secrets / Credentials
+# ====================================
+.env*
+!.env.example
+*.pem
+*.key
