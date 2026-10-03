@@ -1,200 +1,124 @@
-# Typst University & School Note-Taking Setup
+# Academic Notes & Course Management
 
-Inspiriert von **Gilles Castel's** legendärem Vorlesungs-Setup, optimiert für **Typst** und **Rofi (Wayland)** unter Linux.
-
----
-
-## 🚀 Übersicht & Schnellstart
-
-Dieses Setup ermöglicht es dir, blitzschnell Notizen in Vorlesungen und im Unterricht mit Typst zu erstellen und zu verwalten:
-
-* **Minimalistisches Typst-Template (`template.typ`)**:
-  * Sauberes A4-Layout mit deutscher Spracheinstellung und nativer Seitenzählung (`Seite X von Y`).
-  * Elegante Kopfzeile mit Fach- und Vorlesungstitel.
-  * Schnelle, schlanke Callout-Boxen (`#note`, `#definition`, `#theorem`, `#law`, etc.).
-  * Voll kompatibel mit Typst 0.15+.
-* **Rofi-Menüs (Wayland-nativ)**:
-  * `rofi-courses`: Schnelles Wechseln des aktiven Fachs.
-  * `rofi-lectures`: Vorlesung auswählen oder mit `Strg+N` sofort eine neue Lektion beginnen.
-  * `rofi-notes`: Zentrales Schnellmenü (Neue Lektion, Lektion öffnen, Fach wechseln, Live-Vorschau, Kompilieren).
-* **CLI-Kommando (`new-lesson`)**:
-  * Erstellt eine nummerierte Lektionsdatei (`lesson_02.typ`), bindet sie automatisch in `main.typ` ein und öffnet sie in Neovim (`nvim`).
-* **Automatischer Symlink**:
-  * `/home/mo/ac/current-course` zeigt immer auf das aktuell aktive Fach.
-  * `/tmp/current_course` enthält das Kürzel (z. B. für Waybar/Polybar).
+A lightweight academic note-taking and static site generation workflow built for Typst, Neovim, Rofi (Wayland), and Hugo.
 
 ---
 
-## 📁 Ordnerstruktur
+## Overview
+
+This repository provides an integrated environment for drafting, structuring, and publishing academic lecture notes:
+
+- **Typst Documents**: Fast typesetting with native A4 layout, headers, definitions, and theorems.
+- **Master Script Architecture**: Each subject maintains a central `main.typ` that compiles into a complete `main.pdf`.
+- **Desktop Workflow**: Wayland-native Rofi menus and Neovim keybindings for course switching, lesson creation, and Inkscape vector sketches.
+- **Academic Web Portal**: A clean static web index in classic academic directory style (Times New Roman / Georgia serif) with PDF preview, table/grid views, search, and school/semester tag filters.
+
+---
+
+## Directory Structure
 
 ```text
-/home/mo/ac/
-├── template.typ                  # Zentrales Typst-Template
-├── current-course -> ...         # Symlink auf das aktive Fach
-├── scripts/                      # Python- & Rofi-Skripte
-│   ├── config.py                 # Konfiguration (Pfade, Editor, Terminal)
-│   ├── courses.py                # Fächerverwaltung & YAML-Parser
-│   ├── lectures.py               # Lektionsverwaltung & Typst-Integration
-│   ├── rofi.py                   # Rofi-Wrapper (Wayland-kompatibel)
-│   ├── rofi-courses.py           # Fachauswahl via Rofi
-│   ├── rofi-lectures.py          # Lektionsauswahl via Rofi
-│   ├── rofi-notes.py             # Dashboard-Menü
-│   └── new-lesson.py             # CLI-Ersteller
-└── bulme/year-4/                 # Fächerverzeichnis
-    ├── am/                       # Angewandte Mathematik
-    │   ├── info.yaml             # Metadaten (Titel & Kürzel)
-    │   ├── template.typ -> ...   # Symlink zum Template
-    │   ├── main.typ              # Master-Dokument
-    │   └── lessons/              # Einzelne Lektionen
-    │       ├── lesson_01.typ
-    │       └── lesson_02.typ
-    ├── wir3/                     # Wirtschaft und Recht 3
-    ├── hwe/                      # Hardwareentwicklung
-    └── ...
+ac/
+├── template.typ                  # Central Typst template and macros
+├── current-course -> ...         # Symlink pointing to the currently active course
+├── scripts/                      # Management scripts and build pipeline
+│   ├── build_site.py             # Compiles Typst PDFs and generates the Hugo portal
+│   ├── config.py                 # Paths, editor, and terminal configuration
+│   ├── courses.py                # Course scanning and metadata parsing
+│   ├── lectures.py               # Lesson management and Typst includes
+│   ├── rofi.py                   # Rofi Wayland interface wrapper
+│   ├── rofi-courses.py           # Course selection menu
+│   ├── rofi-lectures.py          # Lesson selector and creator
+│   ├── rofi-notes.py             # Central quick-access dashboard
+│   ├── rofi-figures.py           # Inkscape figure manager
+│   └── new-lesson.py             # CLI lesson generator
+├── bulme/year-4/                 # BULME Graz courses (Semester 8)
+│   ├── am/                       # Applied Mathematics
+│   │   ├── info.yaml             # Course metadata (title, short code)
+│   │   ├── template.typ -> ...   # Symlink to global template
+│   │   ├── main.typ              # Master document
+│   │   └── lessons/              # Individual lecture source files
+│   ├── auro/                     # Automation and Robotics
+│   ├── dic/                      # Digital Technology
+│   ├── fsst/                     # Software Systems
+│   ├── gp/                       # Project Management
+│   ├── hwe/                      # Hardware Engineering
+│   ├── pbe3/                     # Microcontrollers / Embedded Systems
+│   └── wir3/                     # Economics and Law
+├── tug/                          # Graz University of Technology courses (future-proofed)
+└── site/                         # Hugo portal directory
+    ├── config.toml / hugo.toml   # Hugo configuration
+    ├── content/                  # Generated pages, landing page, Impressum
+    ├── layouts/                  # Academic index layouts and templates
+    └── static/                   # Compiled PDFs, CSS, and JS controllers
 ```
 
 ---
 
-## ⌨️ Niri-Tastenkombinationen
+## Desktop Workflow & Keybindings
 
-In deiner `~/.config/niri/config.kdl` sind folgende Tastenkombinationen aktiv:
+### Window Manager (Niri / Wayland)
 
-```kdl
-// Rofi & System
-Mod+D         hotkey-overlay-title="App-Launcher: rofi"   { spawn "rofi" "-show" "drun"; }
-Mod+Shift+D   hotkey-overlay-title="Befehl ausführen"     { spawn "rofi" "-show" "run"; }
-Mod+Tab       hotkey-overlay-title="Fenster wechseln"     { spawn "rofi-windows"; }
-Alt+Tab       hotkey-overlay-title="Fenster wechseln"     { spawn "rofi-windows"; }
-Mod+BackSpace hotkey-overlay-title="Power-Menü"           { spawn "rofi-power"; }
-Mod+Return    hotkey-overlay-title="Terminal: alacritty"  { spawn "alacritty"; }
+The following hotkeys are defined in `~/.config/niri/config.kdl`:
 
-// Gilles Castel Typst & Inkscape Setup
-Mod+N            hotkey-overlay-title="Typst: Lektion öffnen / neu" { spawn "rofi-lectures"; }
-Mod+Shift+N      hotkey-overlay-title="Typst: Fach wechseln"        { spawn "rofi-courses"; }
-Mod+Alt+N        hotkey-overlay-title="Typst: Notizen-Menü"          { spawn "rofi-notes"; }
-Mod+Alt+F        hotkey-overlay-title="Typst: Inkscape-Figuren"     { spawn "rofi-figures"; }
-Mod+Shift+Return hotkey-overlay-title="Terminal im aktiven Fach"    { spawn "ac-term"; }
-Mod+E            hotkey-overlay-title="Neovim im aktiven Fach"      { spawn "ac-nvim"; }
-```
+| Keybinding | Action | Description |
+|---|---|---|
+| `Mod+N` | `rofi-lectures` | Open lesson picker or create a new lesson |
+| `Mod+Shift+N` | `rofi-courses` | Switch active course |
+| `Mod+Alt+N` | `rofi-notes` | Open central notes dashboard |
+| `Mod+Alt+F` | `rofi-figures` | Open Inkscape figure manager |
+| `Mod+Shift+Return` | `ac-term` | Launch terminal in active course directory |
+| `Mod+E` | `ac-nvim` | Open Neovim in active course directory |
 
----
+### Neovim Shortcuts
 
-## 📊 Statusleiste (Noctalia)
+| Keybinding | Action |
+|---|---|
+| `<Leader>tp` | Toggle PDF preview with Zathura |
+| `<Leader>tm` | Pin master document (`main.typ`) in Tinymist LSP |
+| `<Leader>if` | Create a new Inkscape vector figure and insert reference |
+| `<Leader>ie` | Select and edit existing Inkscape figure |
 
-Das aktive Fach wird in deiner Noctalia-Statusbar über das native Plugin `mo/current-course:bar` angezeigt:
-* **Anzeige**: `📚 <KÜRZEL>` (z. B. `📚 AM`).
-* **Interaktiv**: Ein Klick auf das Widget öffnet sofort `rofi-courses` zur Fachauswahl.
-* **Synchronisation**: Bei jedem Fachwechsel aktualisieren sich `/tmp/current_course` und die Bar automatisch in Echtzeit.
+### Inkscape Vector Drawing
 
----
+Vector figures are stored as `.svg` in each course's `figures/` folder and included directly in Typst without intermediate compilation:
 
-## 🎨 Gilles Castel Inkscape-Setup (Optimiert für Typst)
-
-Das Setup ermöglicht blitzschnelles Zeichnen mathematischer und technischer Skizzen während des Unterrichts:
-
-* **Neovim-Keymaps**:
-  * `<Leader>if`: Neue Inkscape-Figur erstellen (Titel eingeben $\to$ SVG wird erzeugt, `#figure(...)` Code wird direkt an den Cursor eingefügt, Inkscape öffnet sich).
-  * `<Leader>ie`: Bestehende Figuren über Rofi durchsuchen und in Inkscape öffnen.
-  * Snippet `incfig` oder `fig`: Schnelles Einfügen von Figuren-Blöcken.
-* **Typst-Optimierung**:
-  * Nativer Vektor-SVG-Import ohne Zwischenkompilierung (`#figure(image("../figures/...svg"))` oder `#incfig("slug")`).
-  * Default-Schriftart im SVG ist `Libertinus Serif` / `Linux Libertine` (identisch zum Dokumententext).
-* **Ergonomische Inkscape-Tastenkürzel** (`~/.config/inkscape/keys/default.xml`):
-  * `s` $\to$ Auswahl-Werkzeug (Select)
-  * `d` $\to$ Bézier-Stift (Pen / Kurven & Linien)
-  * `e` $\to$ Kreis / Ellipse (Arc)
-  * `r` $\to$ Rechteck (Rect)
-  * `t` $\to$ Text
-  * `a` $\to$ Knoten bearbeiten (Node)
-  * `z` $\to$ Zoom
-  * `f` $\to$ Füllung und Kontur (Dialog)
-  * `x` $\to$ Ausrichten und Verteilen (Dialog)
-  * `w` $\to$ Einrasten / Snapping umschalten
-  * `q` / `Esc` $\to$ Alles abwählen (Deselect)
-* **Rofi-Figuren-Manager**:
-  * `Mod+Alt+F` oder `rofi-figures`: Dashboard zum Erstellen, Bearbeiten und Öffnen des Figuren-Ordners.
+- `s`: Selection tool
+- `d`: Bezier pen (curves & lines)
+- `e`: Circle / ellipse
+- `r`: Rectangle
+- `t`: Text tool
+- `a`: Node edit tool
+- `f`: Fill and stroke dialog
+- `x`: Align and distribute dialog
+- `w`: Toggle snapping
+- `q` / `Esc`: Deselect all
 
 ---
 
-## 📝 Verwendung
+## Web Portal & Build Pipeline
 
-### 1. Über Rofi
-* Drücke `Mod+N` (oder `rofi-lectures`): Lektion auswählen oder mit `➕ Neue Lektion erstellen` direkt anlegen.
-* Drücke `Mod+Shift+N` (oder `rofi-courses`): Fach wechseln.
-* Drücke `Mod+Alt+N` (oder `rofi-notes`): Notizen-Dashboard (Lektion, Fach, Inkscape-Figuren, Live-Vorschau, Master-Kompilierung).
-* Drücke `Mod+Alt+F` (oder `rofi-figures`): Figuren anlegen und bearbeiten.
+The publishing pipeline generates a static web portal showcasing all compiled master scripts.
 
-### 2. Über Neovim
-* `<Leader>tp`: Live-Vorschau mit Zathura starten / stoppen.
-* `<Leader>if`: Neue Inkscape-Figur anlegen und Code einfügen.
-* `<Leader>ie`: Figur bearbeiten.
-* `<Leader>tm`: Hauptdokument (`main.typ`) in Tinymist pinnen.
+### Features
 
----
+- **Classic Academic Index Design**: Styled in classic serif typography with dark mode support.
+- **Direct Master PDF Viewer**: Embedded in-browser PDF reader with download and full-window links.
+- **Layout Switcher**: Toggle between table view and responsive grid view.
+- **Instant Search**: Real-time filtering by course title, code, and section.
+- **Tag Filtering**: Filter courses by institution (BULME, TU Graz) and semester (Semester 8, etc.) using interactive bracketed tag chips.
+- **Impressum**: Austrian legal notice and contact information.
 
-## 📄 Aufbau einer Lektion (`lesson_01.typ`)
-
-Eine Lektion ist bewusst so einfach und sauber wie möglich gehalten:
-
-```typst
-#import "../template.typ": *
-
-#lesson("Einführung in Vektorräume", date: "02.10.2026")
-
-== Grundbegriffe
-
-Ein Vektorraum $V$ über einem Körper $K$ erfüllt...
-
-#note(title: "Wichtige Eigenschaft")[
-  Die Vektoraddition ist kommutativ und assoziativ.
-]
-```
-
-## 📄 Aufbau des Master-Dokuments (`main.typ`)
-
-```typst
-#import "template.typ": *
-
-#show: project.with(
-  title: "Angewandte Mathematik",
-  course: "AM",
-  author: "Moritz",
-)
-
-// Inkludierte Lektionen (werden automatisch durch new-lesson hinzugefügt)
-#include "lessons/lesson_01.typ"
-```
-
----
-
-## Continuous Deployment & Academic PDF Portal
-
-On every `git push` to `main`, a GitHub Actions workflow automatically compiles all Typst documents to PDF and deploys an interactive, modern **Academic PDF Portal & Notes Hub** to GitHub Pages:
-
-* **Central Document Dashboard**:
-  * Real-time metrics overview (total compiled PDFs, active subjects, lecture count, last build date).
-  * **Instant Live Search**: Instantly filters across all document titles, lecture topics, course codes, and dates.
-  * **Interactive Filter Pills**: Filter by document type (*Master Scripts*, *Individual Lessons*, *Supplementary / Guides*) and by subject (*AM*, *AURO*, *DIC*, *FSST*, *GP*, *HWE*, *PBE3*, *WIR3*).
-  * **Switchable Layout**: Toggle seamlessly between visual **Document Grid Cards** and a dense **Compact Data Table**.
-* **Wide-Screen Multi-Document Reader**:
-  * Full-width embedded viewer for desktop and mobile.
-  * **Tabbed Document Switcher**: Flip between `main.pdf`, `lesson_01.pdf`, `lesson_02.pdf`, and supplementary scripts with 1 click without leaving or reloading the page.
-  * Integrated toolbar: One-click PDF download, open in new tab, and fullscreen mode.
-* **Modern & Self-Contained**:
-  * Lightning-fast native Hugo compilation (~30ms) with zero npm/Node.js dependencies.
-  * Smooth Dark & Light mode toggle with system preference detection and `localStorage` persistence.
-  * Completely self-contained in the repository (no fragile Git submodules).
-
-### Local Development
-
-To compile PDFs and preview the documentation site locally:
+### Local Build Commands
 
 ```bash
-# Compile PDFs and generate Hugo content
+# Compile all Typst documents to PDF and generate Hugo content
 python3 scripts/build_site.py --build-hugo
 
-# Start Hugo development server
+# Start local Hugo development server
 hugo server -s site
 ```
 
+### Automated Deployment
 
+Pushes to the `main` branch trigger a GitHub Actions workflow (`.github/workflows/deploy.yml`) that runs `scripts/build_site.py`, builds the site with Hugo, and publishes the static output to GitHub Pages.

@@ -109,6 +109,84 @@ hr {
   border-color: var(--border-strong);
 }
 
+/* Filter Panel & Tag Chips */
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0 1.25rem 0;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.filter-title {
+  font-weight: bold;
+  min-width: 80px;
+  color: var(--text);
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.tag-chip {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  padding: 0.12rem 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.3;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.tag-chip:hover {
+  border-color: var(--border-strong);
+  background: var(--table-hover);
+}
+
+.tag-chip.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+  font-weight: bold;
+}
+
+.tag-chip.tag-inline {
+  font-size: 0.8rem;
+  padding: 0.05rem 0.35rem;
+}
+
+.tag-chip.tag-reset {
+  margin-left: auto;
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+.tag-chip.tag-reset:hover {
+  color: var(--link-hover);
+  border-color: var(--link-hover);
+}
+
+.grid-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
 .toolbar {
   display: flex;
   justify-content: space-between;

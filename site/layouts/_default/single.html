@@ -1,7 +1,17 @@
 {{ define "main" }}
-<div class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
-  <article class="markdown" style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem;">
-    <h1>{{ .Title }}</h1>
+<div class="container">
+  <div style="margin-bottom: 0.75rem;">
+    <a href="{{ "" | relURL }}">[← Parent Directory]</a>
+  </div>
+
+  <h1 class="course-title">{{ .Title }}</h1>
+  {{ if .Description }}
+  <div class="course-meta">{{ .Description }}</div>
+  {{ end }}
+
+  <hr>
+
+  <article class="page-content" style="max-width: 750px; line-height: 1.6; margin-top: 1rem;">
     {{ .Content }}
   </article>
 </div>

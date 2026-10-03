@@ -34,6 +34,7 @@
 
       <nav class="header-nav">
         <a href="{{ "" | relURL }}">[Overview]</a>
+        <a href="{{ "impressum/" | relURL }}">[Impressum]</a>
         {{ if .Site.Params.githubRepo }}
         <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener">[GitHub]</a>
         {{ end }}
@@ -52,7 +53,11 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div><strong>{{ .Site.Params.author | default "Moritz Heinzle" }}</strong></div>
+      <div>
+        <strong>{{ .Site.Params.author | default "Moritz Heinzle" }}</strong>
+        &nbsp;•&nbsp;
+        <a href="{{ "impressum/" | relURL }}">[Impressum]</a>
+      </div>
       <div>{{ .Site.Title }}</div>
     </div>
   </footer>

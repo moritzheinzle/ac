@@ -8,7 +8,7 @@ enableGitInfo = false
 [params]
   author = "Moritz Heinzle"
   githubRepo = "https://github.com/moritzheinzle/ac"
-  subtitle = "Vorlesungsnotizen, Skripte & Lektionen"
+  subtitle = "Notes from academics"
 
 [markup]
   [markup.goldmark.renderer]

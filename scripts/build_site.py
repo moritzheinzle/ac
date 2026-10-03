@@ -47,39 +47,107 @@ class CourseScanner:
         self.root = root_dir.resolve()
 
     def get_category_info(self, course_path: Path, info: dict = None):
-        if info and "category" in info:
-            cat_title = info["category"]
-            cat_id = info.get("category_id", re.sub(r'[^a-zA-Z0-9]+', '-', cat_title.lower()).strip('-'))
-            cat_weight = int(info.get("category_weight", 50))
-            return cat_id, cat_title, cat_weight
-
         rel_parts = course_path.relative_to(self.root).parts
         if not rel_parts:
-            return "other", "Other Courses", 99
+            return "other", "Other Courses", "Other", "General", 99
 
         top = rel_parts[0]
+        school = "Other"
+        semester = "General"
+        cat_id = "other"
+        cat_title = "Other"
+        cat_weight = 99
+
         if top == "bulme":
+            school = "BULME"
             if len(rel_parts) >= 2:
                 sub = rel_parts[1]
-                year_match = re.search(r'(\d+)', sub)
-                year_num = year_match.group(1) if year_match else sub
-                return f"bulme-{sub}", f"BULME (Year {year_num})", 10 + int(year_num if year_num.isdigit() else 0)
-            return "bulme", "BULME", 10
+                if sub == "year-4" or "year-4" in sub:
+                    semester = "Semester 8"
+                    cat_id = "bulme-sem-8"
+                    cat_title = "BULME (Semester 8)"
+                    cat_weight = 18
+                elif sub == "year-5" or "year-5" in sub:
+                    semester = "Semester 10"
+                    cat_id = "bulme-sem-10"
+                    cat_title = "BULME (Semester 10)"
+                    cat_weight = 20
+                elif sub == "year-3" or "year-3" in sub:
+                    semester = "Semester 6"
+                    cat_id = "bulme-sem-6"
+                    cat_title = "BULME (Semester 6)"
+                    cat_weight = 16
+                elif sub == "year-2" or "year-2" in sub:
+                    semester = "Semester 4"
+                    cat_id = "bulme-sem-4"
+                    cat_title = "BULME (Semester 4)"
+                    cat_weight = 14
+                elif sub == "year-1" or "year-1" in sub:
+                    semester = "Semester 2"
+                    cat_id = "bulme-sem-2"
+                    cat_title = "BULME (Semester 2)"
+                    cat_weight = 12
+                else:
+                    sem_match = re.search(r'(?:sem(?:ester)?|jahr|year)[-_]?(\d+)', sub, re.IGNORECASE)
+                    if sem_match:
+                        num = int(sem_match.group(1))
+                        semester = f"Semester {num}"
+                        cat_id = f"bulme-sem-{num}"
+                        cat_title = f"BULME (Semester {num})"
+                        cat_weight = 10 + num
+                    else:
+                        clean_sub = sub.replace("-", " ").title()
+                        semester = clean_sub
+                        cat_id = f"bulme-{sub}"
+                        cat_title = f"BULME ({clean_sub})"
+                        cat_weight = 15
+            else:
+                semester = "General"
+                cat_id = "bulme"
+                cat_title = "BULME"
+                cat_weight = 10
 
         elif top == "tug":
+            school = "TU Graz"
             if len(rel_parts) == 2:
-                return "tug", "TU Graz", 30
+                semester = "Semester 1"
+                cat_id = "tug-sem-1"
+                cat_title = "TU Graz (Semester 1)"
+                cat_weight = 31
             elif len(rel_parts) >= 3:
                 sub = rel_parts[1]
                 sem_match = re.search(r'(?:sem(?:ester)?|jahr|year)[-_]?(\d+)', sub, re.IGNORECASE)
                 if sem_match:
-                    sem_num = int(sem_match.group(1))
-                    return f"tug-sem-{sem_num}", f"TU Graz (Semester {sem_num})", 30 + sem_num
-                clean_sub = sub.replace("-", " ").replace("_", " ").title()
-                return f"tug-{sub}", f"TU Graz ({clean_sub})", 30
-            return "tug", "TU Graz", 30
+                    num = int(sem_match.group(1))
+                    semester = f"Semester {num}"
+                    cat_id = f"tug-sem-{num}"
+                    cat_title = f"TU Graz (Semester {num})"
+                    cat_weight = 30 + num
+                else:
+                    clean_sub = sub.replace("-", " ").title()
+                    semester = clean_sub
+                    cat_id = f"tug-{sub}"
+                    cat_title = f"TU Graz ({clean_sub})"
+                    cat_weight = 35
+            else:
+                semester = "General"
+                cat_id = "tug"
+                cat_title = "TU Graz"
+                cat_weight = 30
 
-        return "other", "Other Courses", 99
+        if info:
+            if "school" in info:
+                school = info["school"]
+            if "semester" in info:
+                s_val = str(info["semester"])
+                semester = f"Semester {s_val}" if s_val.isdigit() else s_val
+            if "category" in info:
+                cat_title = info["category"]
+                cat_id = info.get("category_id", re.sub(r'[^a-zA-Z0-9]+', '-', cat_title.lower()).strip('-'))
+            if "category_weight" in info:
+                cat_weight = int(info["category_weight"])
+
+        return cat_id, cat_title, school, semester, cat_weight
 
     def find_courses(self):
         courses = []
@@ -101,7 +169,7 @@ class CourseScanner:
                                     info = parse_simple_yaml(res / fname)
                                     break
 
-                            cat_id, cat_title, cat_weight = self.get_category_info(res, info)
+                            cat_id, cat_title, school, semester, cat_weight = self.get_category_info(res, info)
                             short = info.get("short", res.name.upper())
                             title = info.get("title", res.name.upper())
 
@@ -110,6 +178,8 @@ class CourseScanner:
                                 "name": res.name,
                                 "short": short,
                                 "title": title,
+                                "school": school,
+                                "semester": semester,
                                 "category_id": cat_id,
                                 "category_title": cat_title,
                                 "category_weight": cat_weight,
@@ -193,9 +263,24 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
     # 2. Generate Hugo Content
     content_docs_dir.mkdir(parents=True, exist_ok=True)
 
+    # Clean stale categories
+    for d in content_docs_dir.iterdir():
+        if d.is_dir() and d.name not in categories:
+            shutil.rmtree(d, ignore_errors=True)
+    if static_pdfs_dir.exists():
+        for d in static_pdfs_dir.iterdir():
+            if d.is_dir() and d.name not in categories:
+                shutil.rmtree(d, ignore_errors=True)
+
+    all_schools = sorted(list({c["school"] for c in courses if c.get("school")}))
+    def sem_sort_key(s):
+        m = re.search(r'\d+', s)
+        return (int(m.group(0)) if m else 999, s)
+    all_semesters = sorted(list({c["semester"] for c in courses if c.get("semester")}), key=sem_sort_key)
+
     # A. Landing page (site/content/_index.md)
     landing_page = site_dir / "content" / "_index.md"
-    generate_landing_page(landing_page, courses)
+    generate_landing_page(landing_page, courses, all_schools, all_semesters)
 
     # B. Category and Course pages
     cat_weight = 10
@@ -238,13 +323,15 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
         print("[OK] Hugo build finished: site/public/")
 
 
-def generate_landing_page(path: Path, courses: list):
+def generate_landing_page(path: Path, courses: list, schools: list, semesters: list):
     clean_courses = []
     for c in courses:
         clean_courses.append({
             "name": c["name"],
             "short": c["short"],
             "title": c["title"],
+            "school": c.get("school", "Other"),
+            "semester": c.get("semester", "General"),
             "category_id": c["category_id"],
             "category_title": c["category_title"],
             "course_url": c["course_url"],
@@ -256,6 +343,8 @@ def generate_landing_page(path: Path, courses: list):
 
     frontmatter = {
         "title": "Course Notes",
+        "schools": schools,
+        "semesters": semesters,
         "courses": clean_courses,
         "last_updated": datetime.now().strftime("%d.%m.%Y"),
     }
@@ -269,6 +358,8 @@ def generate_course_page(cat_dir: Path, c: dict, weight: int):
         "title": f"{c['short']} — {c['title']}",
         "course_title": c["title"],
         "short": c["short"],
+        "school": c.get("school", "Other"),
+        "semester": c.get("semester", "General"),
         "category_id": c["category_id"],
         "category_title": c["category_title"],
         "has_pdf": c["has_pdf"],
