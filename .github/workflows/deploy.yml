@@ -50,7 +50,7 @@ jobs:
 
       - name: Build PDFs & Generate Hugo Site
         run: |
-          python3 scripts/build_site.py --build-hugo --baseURL "${{ steps.pages.outputs.base_url }}"
+          python3 scripts/build_site.py --build-hugo --baseURL "${{ steps.pages.outputs.page_url || 'https://moritzheinzle.github.io/ac/' }}"
 
       - name: Upload GitHub Pages Artifact
         uses: actions/upload-pages-artifact@v3

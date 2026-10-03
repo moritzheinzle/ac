@@ -225,8 +225,15 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
 
         print("[BUILD] Compiling static site with Hugo...")
         cmd = [str(hugo_bin), "--source", str(site_dir), "--destination", "public", "--minify"]
-        if base_url:
-            cmd.extend(["--baseURL", base_url])
+        if base_url and base_url.strip():
+            b = base_url.strip()
+            if not b.endswith("/"):
+                b += "/"
+            if "github.io" in b and not b.endswith("/ac/"):
+                b = b.rstrip("/") + "/ac/"
+            cmd.extend(["--baseURL", b])
+        else:
+            cmd.extend(["--baseURL", "https://moritzheinzle.github.io/ac/"])
         subprocess.run(cmd, check=True)
         print("[OK] Hugo build finished: site/public/")
 
