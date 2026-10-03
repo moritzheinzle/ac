@@ -10,6 +10,10 @@
   "pdf_url": "pdfs/bulme-sem-8/wir3/main.pdf",
   "pdf_size": "50.9 KB",
   "pdf_mtime": "03.10.2026",
-  "weight": 90
+  "weight": 90,
+  "info": {
+    "title": "Wirtschaft und Recht",
+    "short": "WIR3"
+  }
 }
 

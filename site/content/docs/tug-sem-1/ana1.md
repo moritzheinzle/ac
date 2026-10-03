@@ -10,6 +10,12 @@
   "pdf_url": "pdfs/tug-sem-1/ana1/main.pdf",
   "pdf_size": "16.0 KB",
   "pdf_mtime": "03.10.2026",
-  "weight": 10
+  "weight": 10,
+  "info": {
+    "title": "Analysis 1",
+    "short": "ANA1",
+    "school": "TU Graz",
+    "semester": "Semester 1"
+  }
 }
 

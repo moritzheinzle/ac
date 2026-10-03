@@ -10,6 +10,10 @@
   "pdf_url": "pdfs/bulme-sem-8/hwe/main.pdf",
   "pdf_size": "56.8 KB",
   "pdf_mtime": "03.10.2026",
-  "weight": 60
+  "weight": 60,
+  "info": {
+    "title": "Hardwareentwicklung",
+    "short": "HWE"
+  }
 }
 

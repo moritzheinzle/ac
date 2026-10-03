@@ -21,6 +21,33 @@
     {{ end }}
   </div>
 
+  <div class="course-details">
+    <table class="course-details-table">
+      <tbody>
+        <tr>
+          <th>Institution:</th>
+          <td>{{ .Params.school | default "BULME" }}</td>
+          <th>Semester:</th>
+          <td>{{ .Params.semester | default "General" }}</td>
+        </tr>
+        {{ if .Params.teacher }}
+        <tr>
+          <th>Teacher:</th>
+          <td colspan="3">{{ .Params.teacher }}</td>
+        </tr>
+        {{ end }}
+        {{ range $key, $val := .Params.info }}
+          {{ if not (in (slice "title" "short" "school" "semester" "teacher" "category" "category_id" "category_weight") $key) }}
+          <tr>
+            <th>{{ $key | humanize }}:</th>
+            <td colspan="3">{{ $val }}</td>
+          </tr>
+          {{ end }}
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+
   <hr>
 
   {{ if .Params.has_pdf }}

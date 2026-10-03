@@ -169,7 +169,7 @@ class CourseScanner:
                             short = info.get("short", res.name.upper())
                             title = info.get("title", res.name.upper())
 
-                            courses.append({
+                            course_data = {
                                 "path": res,
                                 "name": res.name,
                                 "short": short,
@@ -179,7 +179,12 @@ class CourseScanner:
                                 "category_id": cat_id,
                                 "category_title": cat_title,
                                 "category_weight": cat_weight,
-                            })
+                                "info": info,
+                            }
+                            for k, v in info.items():
+                                if k not in course_data:
+                                    course_data[k] = v
+                            courses.append(course_data)
 
         return sorted(courses, key=lambda c: (c["category_weight"], c["short"]))
 
@@ -315,7 +320,7 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
 def generate_landing_page(path: Path, courses: list, schools: list, semesters: list):
     clean_courses = []
     for c in courses:
-        clean_courses.append({
+        item = {
             "name": c["name"],
             "short": c["short"],
             "title": c["title"],
@@ -328,7 +333,10 @@ def generate_landing_page(path: Path, courses: list, schools: list, semesters: l
             "pdf_url": c["pdf_url"],
             "pdf_size": c["pdf_size"],
             "pdf_mtime": c["pdf_mtime"],
-        })
+        }
+        if "teacher" in c:
+            item["teacher"] = c["teacher"]
+        clean_courses.append(item)
 
     frontmatter = {
         "title": "Course Notes",
@@ -356,7 +364,12 @@ def generate_course_page(cat_dir: Path, c: dict, weight: int):
         "pdf_size": c["pdf_size"],
         "pdf_mtime": c["pdf_mtime"],
         "weight": weight,
+        "info": c.get("info", {}),
     }
+    for k, v in c.get("info", {}).items():
+        if k not in frontmatter:
+            frontmatter[k] = v
+
     content = json.dumps(frontmatter, indent=2) + "\n\n"
     page_path.write_text(content, encoding="utf-8")
 

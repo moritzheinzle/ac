@@ -57,7 +57,7 @@
         <tr class="course-item course-row"
             data-school="{{ .school }}"
             data-semester="{{ .semester }}"
-            data-search="{{ .short }} {{ .title }} {{ .category_title }} {{ .school }} {{ .semester }}">
+            data-search="{{ .short }} {{ .title }} {{ .category_title }} {{ .school }} {{ .semester }} {{ .teacher }}">
           <td class="col-mono">{{ if .has_pdf }}[PDF]{{ else }}[DIR]{{ end }}</td>
           <td class="col-mono"><strong>{{ .short }}</strong></td>
           <td>
@@ -65,6 +65,9 @@
             <a href="{{ .course_url | relURL }}"><strong>{{ .title }}</strong></a>
             {{ else }}
             <span>{{ .title }}</span>
+            {{ end }}
+            {{ if .teacher }}
+            <div style="font-size: 0.8rem; color: var(--text-muted);">{{ .teacher }}</div>
             {{ end }}
           </td>
           <td>
@@ -94,7 +97,7 @@
     <div class="course-item grid-card"
          data-school="{{ .school }}"
          data-semester="{{ .semester }}"
-         data-search="{{ .short }} {{ .title }} {{ .category_title }} {{ .school }} {{ .semester }}">
+         data-search="{{ .short }} {{ .title }} {{ .category_title }} {{ .school }} {{ .semester }} {{ .teacher }}">
       <div>
         <div class="grid-card-top">
           <span class="grid-card-code">{{ .short }}</span>
@@ -109,6 +112,9 @@
           <a href="{{ .course_url | relURL }}">{{ .title }}</a>
           {{ else }}
           <span>{{ .title }}</span>
+          {{ end }}
+          {{ if .teacher }}
+          <div style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted); margin-top: 0.2rem;">{{ .teacher }}</div>
           {{ end }}
         </div>
       </div>

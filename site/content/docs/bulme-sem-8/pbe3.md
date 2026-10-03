@@ -10,6 +10,10 @@
   "pdf_url": null,
   "pdf_size": "-",
   "pdf_mtime": "-",
-  "weight": 80
+  "weight": 80,
+  "info": {
+    "title": "Prototypenbau elektronischer Systeme",
+    "short": "PBE3"
+  }
 }
 

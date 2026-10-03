@@ -21,7 +21,8 @@
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/am/main.pdf",
       "pdf_size": "33.6 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_mtime": "03.10.2026",
+      "teacher": "Harrich Tanja"
     },
     {
       "name": "auro",

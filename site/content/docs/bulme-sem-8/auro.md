@@ -10,6 +10,10 @@
   "pdf_url": "pdfs/bulme-sem-8/auro/main.pdf",
   "pdf_size": "20.2 KB",
   "pdf_mtime": "03.10.2026",
-  "weight": 20
+  "weight": 20,
+  "info": {
+    "title": "Robotics and Autonomous Systems",
+    "short": "AURO"
+  }
 }
 

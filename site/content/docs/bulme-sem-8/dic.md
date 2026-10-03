@@ -10,6 +10,10 @@
   "pdf_url": null,
   "pdf_size": "-",
   "pdf_mtime": "-",
-  "weight": 30
+  "weight": 30,
+  "info": {
+    "title": "Digitaltechnik",
+    "short": "DIC"
+  }
 }
 

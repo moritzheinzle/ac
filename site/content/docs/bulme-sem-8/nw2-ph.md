@@ -10,6 +10,10 @@
   "pdf_url": "pdfs/bulme-sem-8/nw2-ph/main.pdf",
   "pdf_size": "16.1 KB",
   "pdf_mtime": "03.10.2026",
-  "weight": 70
+  "weight": 70,
+  "info": {
+    "title": "Physik",
+    "short": "NW2-PH"
+  }
 }
 

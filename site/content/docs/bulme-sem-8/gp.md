@@ -10,6 +10,10 @@
   "pdf_url": null,
   "pdf_size": "-",
   "pdf_mtime": "-",
-  "weight": 50
+  "weight": 50,
+  "info": {
+    "title": "Geografie und Politische Bildung",
+    "short": "GP"
+  }
 }
 
