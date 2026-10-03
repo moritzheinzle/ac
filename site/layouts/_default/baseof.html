@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} • {{ .Site.Title }}{{ end }}</title>
+  <title>{{ if .IsHome }}Index of /notes • {{ .Site.Title }}{{ else }}{{ .Title }} • {{ .Site.Title }}{{ end }}</title>
 
   <script>
     (function() {
@@ -17,31 +17,42 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="{{ "css/portal.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/portal.css" | relURL }}?v=classic">
 </head>
 <body>
 
   <header class="site-header">
-    <div class="container nav-container">
-      <a href="{{ "" | relURL }}" class="brand">{{ .Site.Title }}</a>
-
-      <div class="nav-actions">
-        <a href="{{ "" | relURL }}" class="nav-link">Overview</a>
-        {{ if .Site.Params.githubRepo }}
-        <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener" class="nav-link">GitHub</a>
-        {{ end }}
-        <button id="theme-toggle" class="theme-btn" type="button">Theme</button>
+    <div class="container top-bar">
+      <div>
+        <h1 class="header-title">
+          <a href="{{ "" | relURL }}" style="text-decoration: none; color: inherit;">Index of /notes</a>
+        </h1>
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          {{ .Site.Params.subtitle | default "Academic Course Notes & Master Scripts" }}
+        </div>
       </div>
+
+      <nav class="header-nav">
+        <a href="{{ "" | relURL }}">[Overview]</a>
+        {{ if .Site.Params.githubRepo }}
+        <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener">[GitHub]</a>
+        {{ end }}
+        <button id="theme-toggle" class="theme-toggle-btn" type="button">Theme</button>
+      </nav>
     </div>
   </header>
+
+  <hr>
 
   <main>
     {{ block "main" . }}{{ end }}
   </main>
 
+  <hr>
+
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>{{ .Site.Params.author | default "Moritz Heinzle" }}</div>
+      <div><strong>{{ .Site.Params.author | default "Moritz Heinzle" }}</strong></div>
       <div>{{ .Site.Title }}</div>
     </div>
   </footer>

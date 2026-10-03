@@ -1,27 +1,38 @@
 {{ define "main" }}
 <div class="container">
 
-  <a href="{{ "" | relURL }}" class="back-link">← All Courses</a>
+  <div style="margin-bottom: 0.75rem;">
+    <a href="{{ "" | relURL }}">[← Parent Directory]</a>
+  </div>
 
-  <div class="course-detail-header">
+  <div class="course-header-row">
     <div>
-      <h1 class="page-title">{{ .Params.short }} — {{ .Params.course_title }}</h1>
-      <div class="course-meta-text">
-        {{ .Params.category_title }} &nbsp;|&nbsp; Size: {{ .Params.pdf_size }} &nbsp;|&nbsp; Updated: {{ .Params.pdf_mtime }}
+      <h1 class="course-title">{{ .Params.short }} — {{ .Params.course_title }}</h1>
+      <div class="course-meta col-mono">
+        {{ .Params.category_title }} &nbsp;|&nbsp; Size: {{ .Params.pdf_size }} &nbsp;|&nbsp; Modified: {{ .Params.pdf_mtime }}
       </div>
     </div>
 
     {{ if .Params.has_pdf }}
-    <div class="actions-group">
-      <a href="{{ .Params.pdf_url | relURL }}" class="btn-primary" download>Download PDF</a>
-      <a href="{{ .Params.pdf_url | relURL }}" target="_blank" rel="noopener" class="btn-secondary">Open in New Tab</a>
+    <div class="course-actions">
+      <a href="{{ .Params.pdf_url | relURL }}" download>[Download main.pdf]</a>
+      <a href="{{ .Params.pdf_url | relURL }}" target="_blank" rel="noopener">[Open in New Window]</a>
     </div>
     {{ end }}
   </div>
 
+  <hr>
+
   {{ if .Params.has_pdf }}
-  <div class="viewer-container">
-    <iframe class="viewer-iframe" src="{{ .Params.pdf_url | relURL }}"></iframe>
+  <div class="viewer-wrapper">
+    <object data="{{ .Params.pdf_url | relURL }}" type="application/pdf" class="viewer-object">
+      <iframe src="{{ .Params.pdf_url | relURL }}" class="viewer-iframe">
+        <div class="pdf-fallback-box">
+          <p>Your browser does not support inline PDF viewing.</p>
+          <p><a href="{{ .Params.pdf_url | relURL }}">[Click here to download and view main.pdf directly]</a></p>
+        </div>
+      </iframe>
+    </object>
   </div>
   {{ else }}
   <div class="empty-notice">

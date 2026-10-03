@@ -1,56 +1,54 @@
 {{ define "main" }}
 <div class="container">
 
-  <h1 class="page-title">Course Notes</h1>
-  <p class="page-subtitle">Compiled master documents for all courses.</p>
-
   <div class="toolbar">
     <div class="search-wrapper">
-      <input type="text" id="course-search" class="search-input" placeholder="Filter courses..." autocomplete="off">
+      <label for="course-search">Filter:</label>
+      <input type="text" id="course-search" class="search-input" placeholder="Search by name, code, section..." autocomplete="off">
     </div>
 
     <div class="view-toggle">
-      <button type="button" id="toggle-list" class="view-toggle-btn active">List</button>
-      <button type="button" id="toggle-grid" class="view-toggle-btn">Grid</button>
+      <button type="button" id="toggle-list" class="active">[Table View]</button>
+      <button type="button" id="toggle-grid">[Grid View]</button>
     </div>
   </div>
 
-  <!-- List / Table View -->
-  <div id="view-list" class="table-wrapper">
-    <table class="simple-table">
+  <!-- Classic Table View -->
+  <div id="view-list" class="table-container">
+    <table class="index-table">
       <thead>
         <tr>
-          <th style="width: 90px;">Code</th>
-          <th>Subject</th>
+          <th style="width: 70px;">Type</th>
+          <th style="width: 80px;">Code</th>
+          <th>Subject / Master Document</th>
           <th>Section</th>
-          <th style="width: 110px;">Size</th>
-          <th style="width: 110px;">Updated</th>
-          <th style="width: 170px;">Actions</th>
+          <th style="width: 120px;">Last Modified</th>
+          <th style="width: 90px;">Size</th>
+          <th style="width: 150px;">Actions</th>
         </tr>
       </thead>
       <tbody>
         {{ range .Params.courses }}
         <tr class="course-item course-row" data-search="{{ .short }} {{ .title }} {{ .category_title }}">
-          <td><span class="course-code">{{ .short }}</span></td>
+          <td class="col-mono">{{ if .has_pdf }}[PDF]{{ else }}[DIR]{{ end }}</td>
+          <td class="col-mono"><strong>{{ .short }}</strong></td>
           <td>
             {{ if .has_pdf }}
-            <a href="{{ .course_url | relURL }}" style="font-weight: 600;">{{ .title }}</a>
+            <a href="{{ .course_url | relURL }}"><strong>{{ .title }}</strong></a>
             {{ else }}
-            <span style="color: var(--text-dim);">{{ .title }}</span>
+            <span>{{ .title }}</span>
             {{ end }}
           </td>
-          <td style="color: var(--text-muted); font-size: 0.85rem;">{{ .category_title }}</td>
-          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .pdf_size }}</td>
-          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .pdf_mtime }}</td>
+          <td>{{ .category_title }}</td>
+          <td class="col-mono">{{ .pdf_mtime }}</td>
+          <td class="col-mono">{{ .pdf_size }}</td>
           <td>
-            <div class="actions-group">
-              {{ if .has_pdf }}
-              <a href="{{ .course_url | relURL }}" class="btn-primary">View</a>
-              <a href="{{ .pdf_url | relURL }}" class="btn-secondary" download>PDF</a>
-              {{ else }}
-              <span class="badge-status badge-empty">Pending</span>
-              {{ end }}
-            </div>
+            {{ if .has_pdf }}
+            <a href="{{ .course_url | relURL }}">[View]</a> &nbsp;
+            <a href="{{ .pdf_url | relURL }}" download>[PDF]</a>
+            {{ else }}
+            <span style="color: var(--text-muted); font-size: 0.85rem;">[Pending]</span>
+            {{ end }}
           </td>
         </tr>
         {{ end }}
@@ -58,35 +56,39 @@
     </table>
   </div>
 
-  <!-- Grid View -->
-  <div id="view-grid" class="courses-grid" style="display: none;">
+  <!-- Classic Grid View -->
+  <div id="view-grid" class="index-grid" style="display: none;">
     {{ range .Params.courses }}
-    <div class="course-item course-card" data-search="{{ .short }} {{ .title }} {{ .category_title }}">
-      <div class="course-card-top">
-        <span class="course-code">{{ .short }}</span>
-        <span class="course-card-section">{{ .category_title }}</span>
+    <div class="course-item grid-card" data-search="{{ .short }} {{ .title }} {{ .category_title }}">
+      <div>
+        <div class="grid-card-top">
+          <span class="grid-card-code">{{ .short }}</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">{{ .category_title }}</span>
+        </div>
+
+        <div class="grid-card-title">
+          {{ if .has_pdf }}
+          <a href="{{ .course_url | relURL }}">{{ .title }}</a>
+          {{ else }}
+          <span>{{ .title }}</span>
+          {{ end }}
+        </div>
       </div>
 
-      <h2 class="course-card-title">
-        {{ if .has_pdf }}
-        <a href="{{ .course_url | relURL }}">{{ .title }}</a>
-        {{ else }}
-        <span style="color: var(--text-dim);">{{ .title }}</span>
-        {{ end }}
-      </h2>
+      <div>
+        <div class="grid-card-meta col-mono">
+          <span>Modified: {{ .pdf_mtime }}</span> &nbsp;|&nbsp;
+          <span>Size: {{ .pdf_size }}</span>
+        </div>
 
-      <div class="course-card-meta">
-        <span>{{ .pdf_size }}</span>
-        <span>{{ .pdf_mtime }}</span>
-      </div>
-
-      <div class="course-card-actions">
-        {{ if .has_pdf }}
-        <a href="{{ .course_url | relURL }}" class="btn-primary" style="flex: 1;">View</a>
-        <a href="{{ .pdf_url | relURL }}" class="btn-secondary" download>PDF</a>
-        {{ else }}
-        <span class="badge-status badge-empty">Pending</span>
-        {{ end }}
+        <div class="grid-card-actions">
+          {{ if .has_pdf }}
+          <a href="{{ .course_url | relURL }}">[View PDF]</a>
+          <a href="{{ .pdf_url | relURL }}" download>[Download]</a>
+          {{ else }}
+          <span style="color: var(--text-muted); font-size: 0.85rem;">[No PDF yet]</span>
+          {{ end }}
+        </div>
       </div>
     </div>
     {{ end }}
