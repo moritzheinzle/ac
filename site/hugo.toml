@@ -1,0 +1,15 @@
+baseURL = "https://moritzheinzle.github.io/ac/"
+title = "Course Notes"
+defaultContentLanguage = "en"
+
+disablePathToLower = true
+enableGitInfo = false
+
+[params]
+  author = "Moritz Heinzle"
+  githubRepo = "https://github.com/moritzheinzle/ac"
+  subtitle = "Vorlesungsnotizen, Skripte & Lektionen"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true

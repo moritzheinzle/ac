@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="container">
+
+  <a href="{{ "" | relURL }}" class="back-link">← All Courses</a>
+
+  <div class="course-detail-header">
+    <div>
+      <h1 class="page-title">{{ .Params.short }} — {{ .Params.course_title }}</h1>
+      <div class="course-meta-text">
+        {{ .Params.category_title }} &nbsp;|&nbsp; Size: {{ .Params.pdf_size }} &nbsp;|&nbsp; Updated: {{ .Params.pdf_mtime }}
+      </div>
+    </div>
+
+    {{ if .Params.has_pdf }}
+    <div class="actions-group">
+      <a href="{{ .Params.pdf_url | relURL }}" class="btn-primary" download>Download PDF</a>
+      <a href="{{ .Params.pdf_url | relURL }}" target="_blank" rel="noopener" class="btn-secondary">Open in New Tab</a>
+    </div>
+    {{ end }}
+  </div>
+
+  {{ if .Params.has_pdf }}
+  <div class="viewer-container">
+    <iframe class="viewer-iframe" src="{{ .Params.pdf_url | relURL }}"></iframe>
+  </div>
+  {{ else }}
+  <div class="empty-notice">
+    No compiled PDF document is available for this course yet.
+  </div>
+  {{ end }}
+
+</div>
+{{ end }}

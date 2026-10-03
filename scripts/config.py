@@ -4,7 +4,7 @@ import shutil
 from pathlib import Path
 
 # Paths
-BASE_DIR = Path("/home/mo/ac")
+BASE_DIR = Path(os.environ.get("AC_BASE_DIR", str(Path(__file__).resolve().parent.parent)))
 ROOT = Path(os.environ.get("TYPST_COURSES_ROOT", str(BASE_DIR / "bulme" / "year-4")))
 CURRENT_COURSE_SYMLINK = Path(os.environ.get("TYPST_CURRENT_COURSE", str(BASE_DIR / "current-course")))
 CURRENT_COURSE_WATCH_FILE = Path("/tmp/current_course")

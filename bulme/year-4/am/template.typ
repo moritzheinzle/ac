@@ -1,1 +1,1 @@
-/home/mo/ac/template.typ
+../../../template.typ

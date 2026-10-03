@@ -18,3 +18,4 @@
 // LEKTIONEN
 // ==============================================================================
 #include "lessons/lesson_01.typ"
+#include "lessons/lesson_02.typ"

@@ -118,7 +118,11 @@ class Courses(list):
         if CURRENT_COURSE_SYMLINK.is_symlink() or CURRENT_COURSE_SYMLINK.exists():
             CURRENT_COURSE_SYMLINK.unlink()
         
-        CURRENT_COURSE_SYMLINK.symlink_to(course.path)
+        try:
+            rel_path = os.path.relpath(course.path, CURRENT_COURSE_SYMLINK.parent)
+            CURRENT_COURSE_SYMLINK.symlink_to(rel_path)
+        except Exception:
+            CURRENT_COURSE_SYMLINK.symlink_to(course.path)
         
         try:
             CURRENT_COURSE_WATCH_FILE.write_text(f"{course.short}\n")

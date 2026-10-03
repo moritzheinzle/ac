@@ -1,0 +1,96 @@
+{{ define "main" }}
+<div class="container">
+
+  <h1 class="page-title">Course Notes</h1>
+  <p class="page-subtitle">Compiled master documents for all courses.</p>
+
+  <div class="toolbar">
+    <div class="search-wrapper">
+      <input type="text" id="course-search" class="search-input" placeholder="Filter courses..." autocomplete="off">
+    </div>
+
+    <div class="view-toggle">
+      <button type="button" id="toggle-list" class="view-toggle-btn active">List</button>
+      <button type="button" id="toggle-grid" class="view-toggle-btn">Grid</button>
+    </div>
+  </div>
+
+  <!-- List / Table View -->
+  <div id="view-list" class="table-wrapper">
+    <table class="simple-table">
+      <thead>
+        <tr>
+          <th style="width: 90px;">Code</th>
+          <th>Subject</th>
+          <th>Section</th>
+          <th style="width: 110px;">Size</th>
+          <th style="width: 110px;">Updated</th>
+          <th style="width: 170px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .Params.courses }}
+        <tr class="course-item course-row" data-search="{{ .short }} {{ .title }} {{ .category_title }}">
+          <td><span class="course-code">{{ .short }}</span></td>
+          <td>
+            {{ if .has_pdf }}
+            <a href="{{ .course_url | relURL }}" style="font-weight: 600;">{{ .title }}</a>
+            {{ else }}
+            <span style="color: var(--text-dim);">{{ .title }}</span>
+            {{ end }}
+          </td>
+          <td style="color: var(--text-muted); font-size: 0.85rem;">{{ .category_title }}</td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .pdf_size }}</td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .pdf_mtime }}</td>
+          <td>
+            <div class="actions-group">
+              {{ if .has_pdf }}
+              <a href="{{ .course_url | relURL }}" class="btn-primary">View</a>
+              <a href="{{ .pdf_url | relURL }}" class="btn-secondary" download>PDF</a>
+              {{ else }}
+              <span class="badge-status badge-empty">Pending</span>
+              {{ end }}
+            </div>
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Grid View -->
+  <div id="view-grid" class="courses-grid" style="display: none;">
+    {{ range .Params.courses }}
+    <div class="course-item course-card" data-search="{{ .short }} {{ .title }} {{ .category_title }}">
+      <div class="course-card-top">
+        <span class="course-code">{{ .short }}</span>
+        <span class="course-card-section">{{ .category_title }}</span>
+      </div>
+
+      <h2 class="course-card-title">
+        {{ if .has_pdf }}
+        <a href="{{ .course_url | relURL }}">{{ .title }}</a>
+        {{ else }}
+        <span style="color: var(--text-dim);">{{ .title }}</span>
+        {{ end }}
+      </h2>
+
+      <div class="course-card-meta">
+        <span>{{ .pdf_size }}</span>
+        <span>{{ .pdf_mtime }}</span>
+      </div>
+
+      <div class="course-card-actions">
+        {{ if .has_pdf }}
+        <a href="{{ .course_url | relURL }}" class="btn-primary" style="flex: 1;">View</a>
+        <a href="{{ .pdf_url | relURL }}" class="btn-secondary" download>PDF</a>
+        {{ else }}
+        <span class="badge-status badge-empty">Pending</span>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

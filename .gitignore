@@ -89,3 +89,13 @@ target/
 !.env.example
 *.pem
 *.key
+
+# ====================================
+# Hugo / GitHub Pages
+# ====================================
+/site/public/
+/site/resources/
+/site/static/pdfs/
+.hugo_build.lock
+
+

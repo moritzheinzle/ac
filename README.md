@@ -164,3 +164,37 @@ Ein Vektorraum $V$ über einem Körper $K$ erfüllt...
 // Inkludierte Lektionen (werden automatisch durch new-lesson hinzugefügt)
 #include "lessons/lesson_01.typ"
 ```
+
+---
+
+## Continuous Deployment & Academic PDF Portal
+
+On every `git push` to `main`, a GitHub Actions workflow automatically compiles all Typst documents to PDF and deploys an interactive, modern **Academic PDF Portal & Notes Hub** to GitHub Pages:
+
+* **Central Document Dashboard**:
+  * Real-time metrics overview (total compiled PDFs, active subjects, lecture count, last build date).
+  * **Instant Live Search**: Instantly filters across all document titles, lecture topics, course codes, and dates.
+  * **Interactive Filter Pills**: Filter by document type (*Master Scripts*, *Individual Lessons*, *Supplementary / Guides*) and by subject (*AM*, *AURO*, *DIC*, *FSST*, *GP*, *HWE*, *PBE3*, *WIR3*).
+  * **Switchable Layout**: Toggle seamlessly between visual **Document Grid Cards** and a dense **Compact Data Table**.
+* **Wide-Screen Multi-Document Reader**:
+  * Full-width embedded viewer for desktop and mobile.
+  * **Tabbed Document Switcher**: Flip between `main.pdf`, `lesson_01.pdf`, `lesson_02.pdf`, and supplementary scripts with 1 click without leaving or reloading the page.
+  * Integrated toolbar: One-click PDF download, open in new tab, and fullscreen mode.
+* **Modern & Self-Contained**:
+  * Lightning-fast native Hugo compilation (~30ms) with zero npm/Node.js dependencies.
+  * Smooth Dark & Light mode toggle with system preference detection and `localStorage` persistence.
+  * Completely self-contained in the repository (no fragile Git submodules).
+
+### Local Development
+
+To compile PDFs and preview the documentation site locally:
+
+```bash
+# Compile PDFs and generate Hugo content
+python3 scripts/build_site.py --build-hugo
+
+# Start Hugo development server
+hugo server -s site
+```
+
+

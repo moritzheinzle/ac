@@ -100,7 +100,8 @@ class Lectures(list):
         template_symlink = self.root / "template.typ"
         if not template_symlink.exists() and TEMPLATE_PATH.exists():
             try:
-                template_symlink.symlink_to(TEMPLATE_PATH)
+                rel_target = os.path.relpath(TEMPLATE_PATH, self.root)
+                template_symlink.symlink_to(rel_target)
             except Exception:
                 pass
 

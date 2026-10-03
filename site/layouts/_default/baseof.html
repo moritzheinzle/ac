@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} • {{ .Site.Title }}{{ end }}</title>
+
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme-mode');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="{{ "css/portal.css" | relURL }}">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="{{ "" | relURL }}" class="brand">{{ .Site.Title }}</a>
+
+      <div class="nav-actions">
+        <a href="{{ "" | relURL }}" class="nav-link">Overview</a>
+        {{ if .Site.Params.githubRepo }}
+        <a href="{{ .Site.Params.githubRepo }}" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+        {{ end }}
+        <button id="theme-toggle" class="theme-btn" type="button">Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>{{ .Site.Params.author | default "Moritz Heinzle" }}</div>
+      <div>{{ .Site.Title }}</div>
+    </div>
+  </footer>
+
+  <script src="{{ "js/portal.js" | relURL }}"></script>
+</body>
+</html>

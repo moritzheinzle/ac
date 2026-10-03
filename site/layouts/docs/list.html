@@ -1,0 +1,50 @@
+{{ define "main" }}
+<div class="container">
+
+  <a href="{{ "" | relURL }}" class="back-link">← All Courses</a>
+
+  <h1 class="page-title">{{ .Title }}</h1>
+  <p class="page-subtitle">Courses in this section.</p>
+
+  <div class="table-wrapper">
+    <table class="simple-table">
+      <thead>
+        <tr>
+          <th style="width: 90px;">Code</th>
+          <th>Subject</th>
+          <th style="width: 110px;">Size</th>
+          <th style="width: 110px;">Updated</th>
+          <th style="width: 170px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .Pages }}
+        <tr>
+          <td><span class="course-code">{{ .Params.short }}</span></td>
+          <td>
+            {{ if .Params.has_pdf }}
+            <a href="{{ .RelPermalink }}" style="font-weight: 600;">{{ .Params.course_title | default .Title }}</a>
+            {{ else }}
+            <span style="color: var(--text-dim);">{{ .Params.course_title | default .Title }}</span>
+            {{ end }}
+          </td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .Params.pdf_size }}</td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">{{ .Params.pdf_mtime }}</td>
+          <td>
+            <div class="actions-group">
+              {{ if .Params.has_pdf }}
+              <a href="{{ .RelPermalink }}" class="btn-primary">View</a>
+              <a href="{{ .Params.pdf_url | relURL }}" class="btn-secondary" download>PDF</a>
+              {{ else }}
+              <span class="badge-status badge-empty">Pending</span>
+              {{ end }}
+            </div>
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+{{ end }}

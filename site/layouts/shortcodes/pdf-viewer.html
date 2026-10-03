@@ -1,0 +1,21 @@
+{{ $src := .Get "src" }}
+{{ $url := $src | relURL }}
+<div class="pdf-viewer-container">
+  <div class="pdf-viewer-header">
+    <a href="{{ $url }}" class="pdf-btn pdf-btn-primary" target="_blank" download>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      <span>Download PDF</span>
+    </a>
+    <a href="{{ $url }}" class="pdf-btn pdf-btn-secondary" target="_blank" rel="noopener">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+      <span>Open in New Tab</span>
+    </a>
+  </div>
+  <div class="pdf-embed-wrapper">
+    <object data="{{ $url }}" type="application/pdf" class="pdf-object-frame">
+      <iframe src="{{ $url }}" class="pdf-iframe-frame">
+        <p>PDF preview is not supported by your browser. <a href="{{ $url }}">Download the file directly</a>.</p>
+      </iframe>
+    </object>
+  </div>
+</div>
