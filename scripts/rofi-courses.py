@@ -12,7 +12,6 @@ def main():
 
     current = courses.current
 
-    # Format list
     options = []
     current_index = 0
     for i, c in enumerate(courses):
@@ -32,7 +31,6 @@ def main():
         chosen = courses[index]
         courses.current = chosen
 
-        # If --chain or -c passed, launch rofi-lectures immediately
         if "-c" in sys.argv or "--chain" in sys.argv:
             from lectures import Lectures
             subprocess.Popen([sys.executable, str(sys.path[0] + "/rofi-lectures.py")])

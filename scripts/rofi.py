@@ -40,7 +40,7 @@ def rofi(prompt, options, rofi_args=None, fuzzy=True):
     if returncode == 0:
         key = 0
     elif returncode == 1:
-        key = -1  # Escaped / cancelled
+        key = -1
     elif returncode > 9:
         key = returncode - 9
     else:
@@ -49,7 +49,6 @@ def rofi(prompt, options, rofi_args=None, fuzzy=True):
     return key, index, selected
 
 def rofi_input(prompt, prefill=""):
-    """Prompt user for a single line of text."""
     rofi_bin = "rofi"
     args = [rofi_bin, "-dmenu", "-p", prompt, "-lines", "0"]
     if prefill:

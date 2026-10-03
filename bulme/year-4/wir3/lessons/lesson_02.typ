@@ -4,9 +4,6 @@
 
 == Einführung
 
-// Notizen hier einfügen...
-//
-//
 hiiii ich liebe anna-penis :) 
 
 

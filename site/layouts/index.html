@@ -1,7 +1,6 @@
 {{ define "main" }}
 <div class="container">
 
-  <!-- Tag Filter Panel -->
   <div class="filter-panel">
     <div class="filter-row">
       <span class="filter-title">School:</span>
@@ -39,7 +38,6 @@
     </div>
   </div>
 
-  <!-- Classic Table View -->
   <div id="view-list" class="table-container">
     <table class="index-table">
       <thead>
@@ -91,7 +89,6 @@
     </table>
   </div>
 
-  <!-- Classic Grid View -->
   <div id="view-grid" class="index-grid" style="display: none;">
     {{ range .Params.courses }}
     <div class="course-item grid-card"

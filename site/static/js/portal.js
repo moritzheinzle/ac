@@ -1,11 +1,6 @@
-/**
- * Controller for theme switching, list/grid toggle, search, and school/semester tag filters.
- */
-
 (function () {
   "use strict";
 
-  // Theme Management
   function initTheme() {
     const themeBtn = document.getElementById("theme-toggle");
     if (!themeBtn) return;
@@ -24,7 +19,6 @@
     updateLabel();
   }
 
-  // View Mode Toggle (List vs Grid)
   function initViewToggle() {
     const btnList = document.getElementById("toggle-list");
     const btnGrid = document.getElementById("toggle-grid");
@@ -56,7 +50,6 @@
     setView(savedView);
   }
 
-  // Multi-Filter Engine (Search + School Tag + Semester Tag)
   function initFilterEngine() {
     const searchInput = document.getElementById("course-search");
     const countLabel = document.getElementById("course-count");
@@ -68,7 +61,6 @@
 
     if (!items.length) return;
 
-    // Filter state
     let activeSchool = "all";
     let activeSemester = "all";
     let searchQuery = "";
@@ -125,7 +117,6 @@
       updateButtonsUI();
     }
 
-    // Filter panel click handler
     filterButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const group = btn.getAttribute("data-filter-group");
@@ -140,7 +131,6 @@
       });
     });
 
-    // Inline tag badges click handler (click on [BULME] or [Semester 8] in table/card)
     inlineButtons.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -156,7 +146,6 @@
       });
     });
 
-    // Search query input handler
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
         searchQuery = e.target.value.toLowerCase().trim();
@@ -164,7 +153,6 @@
       });
     }
 
-    // Reset filters
     if (resetBtn) {
       resetBtn.addEventListener("click", () => {
         activeSchool = "all";

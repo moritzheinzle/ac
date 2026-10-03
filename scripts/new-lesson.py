@@ -7,13 +7,11 @@ from config import ROOT, CURRENT_COURSE_SYMLINK
 
 def get_target_course():
     cwd = Path.cwd().resolve()
-    # Check if cwd is inside a course directory
     for parent in [cwd] + list(cwd.parents):
         if (parent / "info.yaml").exists() or (parent / "info.yml").exists() or (parent / "main.typ").exists():
             if parent != ROOT and parent != ROOT.parent:
                 return Course(parent)
 
-    # Fallback to current course
     courses = Courses()
     return courses.current
 

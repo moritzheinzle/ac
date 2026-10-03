@@ -9,7 +9,6 @@ def main():
     courses = Courses()
     current = courses.current
     if not current:
-        # Prompt to select course first
         scripts_dir = Path(__file__).parent
         subprocess.run([sys.executable, str(scripts_dir / "rofi-courses.py")])
         courses = Courses()
@@ -20,8 +19,7 @@ def main():
     lectures = current.lectures
     sorted_lectures = sorted(lectures, key=lambda l: -l.number)
 
-    # Top option for creating new lecture
-    new_opt = "➕ Neue Lektion erstellen  (Strg+N)"
+    new_opt = "[+] Neue Lektion erstellen  (Strg+N)"
     options = [new_opt]
 
     for l in sorted_lectures:
@@ -35,11 +33,10 @@ def main():
 
     key, index, selected = rofi(prompt, options, rofi_args)
 
-    # User pressed Ctrl+N or selected the new option
     if key == 1 or (key == 0 and index == 0):
         title = rofi_input("Titel der Lektion (Enter für Standard):")
         if title is None:
-            return  # Escaped
+            return
         title = title.strip()
         new_lec = lectures.new_lecture(title=title if title else None)
         new_lec.edit()

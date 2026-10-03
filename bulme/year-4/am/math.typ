@@ -1,5 +1,3 @@
-// Mathematische Umgebungen für AM (Angewandte Mathematik)
-
 #let definition(..args) = {
   let pos = args.pos()
   let named = args.named()

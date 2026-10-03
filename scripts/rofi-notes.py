@@ -12,12 +12,12 @@ def main():
     curr_tag = f"[{current.short}]" if current else "[Kein Fach]"
 
     menu_items = [
-        ("➕  Neue Lektion beginnen", "new"),
-        (f"📖  Lektion öffnen {curr_tag}", "lectures"),
-        (f"📚  Fach wechseln (aktuell: {current.short if current else 'keins'})", "courses"),
-        (f"🎨  Figuren verwalten / Neu {curr_tag} (Inkscape)", "figures"),
-        (f"👁️  Live-Vorschau {curr_tag} (Typst + Zathura)", "preview"),
-        (f"🔨  Master kompilieren {curr_tag}", "compile"),
+        ("Neue Lektion beginnen", "new"),
+        (f"Lektion öffnen {curr_tag}", "lectures"),
+        (f"Fach wechseln (aktuell: {current.short if current else 'keins'})", "courses"),
+        (f"Figuren verwalten / Neu {curr_tag} (Inkscape)", "figures"),
+        (f"Live-Vorschau {curr_tag} (Typst + Zathura)", "preview"),
+        (f"Master kompilieren {curr_tag}", "compile"),
     ]
 
     labels = [item[0] for item in menu_items]

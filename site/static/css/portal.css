@@ -1,10 +1,7 @@
-/* Classic University Academic Index Stylesheet */
-
 :root {
   --font-serif: "Times New Roman", Times, "Liberation Serif", Georgia, serif;
   --font-mono: "Courier New", Courier, monospace;
 
-  /* Classic Light Theme */
   --bg: #ffffff;
   --text: #000000;
   --text-muted: #555555;
@@ -18,7 +15,6 @@
 }
 
 html.dark {
-  /* Classic Dark Theme */
   --bg: #121212;
   --text: #e0e0e0;
   --text-muted: #a0a0a0;
@@ -109,7 +105,6 @@ hr {
   border-color: var(--border-strong);
 }
 
-/* Filter Panel & Tag Chips */
 .filter-panel {
   display: flex;
   flex-direction: column;
@@ -244,7 +239,6 @@ hr {
   font-weight: bold;
 }
 
-/* Classic Index Table */
 .index-table {
   width: 100%;
   border-collapse: collapse;
@@ -274,7 +268,6 @@ hr {
   font-size: 0.9rem;
 }
 
-/* Classic Grid View */
 .index-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -328,7 +321,6 @@ hr {
   gap: 0.75rem;
 }
 
-/* Course Detail & PDF Viewer */
 .course-header-row {
   display: flex;
   justify-content: space-between;
@@ -387,7 +379,6 @@ hr {
   color: var(--text-muted);
 }
 
-/* Site Footer */
 .site-footer {
   margin-top: 3rem;
   font-size: 0.9rem;

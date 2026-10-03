@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-inkscape-figures: Fast figure manager for Typst lecture notes inspired by Gilles Castel.
-Optimized for Wayland, Rofi, Typst native SVG rendering, and Neovim integration.
-"""
 import os
 import re
 import sys
@@ -11,7 +7,6 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-# Paths
 AC_DIR = Path("/home/mo/ac")
 CURRENT_COURSE_LINK = AC_DIR / "current-course"
 INKSCAPE_TEMPLATE = Path.home() / ".config" / "inkscape" / "templates" / "default.svg"
@@ -28,7 +23,6 @@ FALLBACK_SVG = """<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 """
 
 def slugify(text: str) -> str:
-    """Convert title to clean filesystem slug, properly handling German umlauts."""
     replacements = {
         "ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss",
         "Ä": "ae", "Ö": "oe", "Ü": "ue",
@@ -40,7 +34,6 @@ def slugify(text: str) -> str:
     return text if text else "figure"
 
 def find_figures_dir(hint_path: Path = None) -> Path:
-    """Locate the target figures directory."""
     candidates = []
     if hint_path:
         hp = hint_path.resolve()
@@ -56,7 +49,6 @@ def find_figures_dir(hint_path: Path = None) -> Path:
         if c.is_dir() and c.name == "figures":
             return c
 
-    # Fallback: create in current course or cwd
     if CURRENT_COURSE_LINK.exists():
         target = CURRENT_COURSE_LINK.resolve() / "figures"
     else:
@@ -65,7 +57,6 @@ def find_figures_dir(hint_path: Path = None) -> Path:
     return target
 
 def rofi_input(prompt: str) -> str:
-    """Prompt user for a string using rofi."""
     args = ["rofi", "-dmenu", "-p", prompt, "-lines", "0"]
     proc = subprocess.run(args, input="", text=True, capture_output=True)
     if proc.returncode == 0 and proc.stdout.strip():
@@ -73,7 +64,6 @@ def rofi_input(prompt: str) -> str:
     return ""
 
 def rofi_select(prompt: str, options: list) -> int:
-    """Display options in rofi and return selected index (-1 if cancelled)."""
     if not options:
         return -1
     args = ["rofi", "-dmenu", "-i", "-p", prompt, "-format", "i", "-lines", str(min(12, len(options)))]
@@ -86,17 +76,14 @@ def rofi_select(prompt: str, options: list) -> int:
     return -1
 
 def notify(summary: str, body: str = ""):
-    """Send desktop notification."""
     if shutil.which("notify-send"):
         subprocess.run(["notify-send", "-a", "Typst Inkscape", summary, body], check=False)
 
 def copy_to_clipboard(text: str):
-    """Copy text to Wayland clipboard using wl-copy."""
     if shutil.which("wl-copy"):
         subprocess.run(["wl-copy"], input=text, text=True, check=False)
 
 def auto_fit_canvas(svg_path: Path):
-    """Trim excess whitespace around drawing using Inkscape page-fit-to-selection."""
     try:
         subprocess.run(
             ["inkscape", "--batch-process", f"--actions=select-all:all;page-fit-to-selection;export-filename:{svg_path};export-do", str(svg_path)],
@@ -108,7 +95,6 @@ def auto_fit_canvas(svg_path: Path):
         pass
 
 def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
-    """Create a new SVG figure, open Inkscape, and if wait=True, insert code upon exit."""
     if not title:
         title = rofi_input("Figur-Titel:")
         if not title:
@@ -124,7 +110,6 @@ def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
         target_file = figures_dir / f"{slug}_{counter}.svg"
         counter += 1
 
-    # Copy template
     if INKSCAPE_TEMPLATE.exists():
         shutil.copyfile(INKSCAPE_TEMPLATE, target_file)
     else:
@@ -134,7 +119,6 @@ def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
     initial_size = target_file.stat().st_size
 
     if wait:
-        # Wait for Inkscape to exit
         subprocess.run(["inkscape", str(target_file)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
         if not target_file.exists():
@@ -145,7 +129,6 @@ def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
         is_modified = curr_mtime > initial_mtime or curr_size != initial_size
 
         if is_modified:
-            # Auto-fit canvas so drawing fits tightly on page
             auto_fit_canvas(target_file)
 
             rel_img_path = f"../figures/{target_file.name}"
@@ -159,14 +142,12 @@ def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
             notify("Figur gespeichert & eingefügt", f"{title}\nTypst-Markup im Clipboard kopiert!")
             return target_file
         else:
-            # User aborted / closed without saving: remove empty dummy
             try:
                 target_file.unlink()
             except Exception:
                 pass
             sys.exit(1)
     else:
-        # Spawn Inkscape in background
         subprocess.Popen(["inkscape", str(target_file)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         rel_img_path = f"../figures/{target_file.name}"
         typst_code = f"""#figure(
@@ -179,7 +160,6 @@ def create_figure(title: str = None, hint_dir: Path = None, wait: bool = False):
         return target_file
 
 def edit_figure(hint_dir: Path = None):
-    """List existing figures in rofi and open chosen figure in Inkscape."""
     figures_dir = find_figures_dir(hint_dir)
     if not figures_dir.exists():
         notify("Kein Figuren-Ordner", f"{figures_dir} existiert nicht.")
@@ -187,7 +167,7 @@ def edit_figure(hint_dir: Path = None):
 
     svg_files = sorted(figures_dir.glob("*.svg"), key=lambda f: f.stat().st_mtime, reverse=True)
     if not svg_files:
-        choice = rofi_select("Keine Figuren vorhanden", ["➕ Neue Figur erstellen"])
+        choice = rofi_select("Keine Figuren vorhanden", ["Neue Figur erstellen"])
         if choice == 0:
             create_figure(hint_dir=hint_dir, wait=True)
         return
@@ -196,7 +176,7 @@ def edit_figure(hint_dir: Path = None):
     for f in svg_files:
         mtime = datetime.fromtimestamp(f.stat().st_mtime).strftime("%d.%m.%Y %H:%M")
         name = f.stem.replace("-", " ").title()
-        options.append(f"🎨 {name: <30} ⟨{f.name} │ {mtime}⟩")
+        options.append(f"{name: <30} ⟨{f.name} │ {mtime}⟩")
 
     idx = rofi_select("Figur bearbeiten", options)
     if idx >= 0 and idx < len(svg_files):
@@ -206,17 +186,15 @@ def edit_figure(hint_dir: Path = None):
         notify("Figur aktualisiert", f"{target.name} angepasst.")
 
 def open_figures_folder(hint_dir: Path = None):
-    """Open figures directory in file manager or terminal."""
     figures_dir = find_figures_dir(hint_dir)
     opener = "nautilus" if shutil.which("nautilus") else "xdg-open"
     subprocess.Popen([opener, str(figures_dir)])
 
 def interactive_menu():
-    """Rofi dashboard for figures."""
     actions = [
-        ("➕  Neue Figur erstellen", "create"),
-        ("✏️  Figur bearbeiten...", "edit"),
-        ("📂  Figuren-Ordner öffnen", "folder"),
+        ("Neue Figur erstellen", "create"),
+        ("Figur bearbeiten...", "edit"),
+        ("Figuren-Ordner öffnen", "folder"),
     ]
     options = [a[0] for a in actions]
     idx = rofi_select("Typst Figuren (Inkscape)", options)
@@ -264,7 +242,6 @@ def main():
     elif cmd in ["menu", "-m"]:
         interactive_menu()
     else:
-        # Treat arguments as title
         create_figure(title=" ".join(args), wait=wait)
 
 if __name__ == "__main__":

@@ -1,5 +1,3 @@
-// Minimal & Fast Lecture Template for Typst (compatible with Typst 0.15+)
-
 #let project(
   title: "Vorlesungsmitschrift",
   course: "",
@@ -42,7 +40,6 @@
   set par(justify: true, leading: 0.65em)
   set heading(numbering: "1.1")
 
-  // Simple title block
   v(0.6cm)
   align(center)[
     #text(22pt, weight: "bold")[#title] \
@@ -63,7 +60,6 @@
   body
 }
 
-// Aliases for compatibility
 #let lecture-notes(
   title: "Vorlesungsnotizen",
   course: "Vorlesung",
@@ -88,7 +84,6 @@
   doc,
 )
 
-// Minimal lesson header
 #let lesson(title, date: none) = {
   let d = if date != none { date } else { datetime.today().display("[day].[month].[year]") }
   heading(level: 1)[#title]
@@ -96,7 +91,6 @@
   v(0.6em)
 }
 
-// Minimal callout box
 #let note(title: "Notiz", body) = {
   block(
     fill: rgb("#f5f7fa"),
@@ -111,7 +105,6 @@
   ]
 }
 
-// Minimal figure inclusion helper (Gilles Castel style for Typst)
 #let incfig(name, caption: none, width: 80%) = {
   let file = if name.ends-with(".svg") or name.ends-with(".png") or name.ends-with(".pdf") {
     name

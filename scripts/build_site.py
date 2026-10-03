@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Simple and minimal PDF Notes builder.
-Compiles main.typ master files to PDF and generates a clean, simple course overview site.
-"""
 
 import argparse
 import json
@@ -226,7 +222,6 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
             }
         categories[cat_id]["courses"].append(c)
 
-    # 1. Compile or copy main.pdf for each course
     for c in courses:
         c_path = c["path"]
         target_pdf_dir = static_pdfs_dir / c["category_id"] / c["name"]
@@ -260,10 +255,8 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
 
         c["course_url"] = f"docs/{c['category_id']}/{c['name']}/"
 
-    # 2. Generate Hugo Content
     content_docs_dir.mkdir(parents=True, exist_ok=True)
 
-    # Clean stale categories
     for d in content_docs_dir.iterdir():
         if d.is_dir() and d.name not in categories:
             shutil.rmtree(d, ignore_errors=True)
@@ -278,11 +271,9 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
         return (int(m.group(0)) if m else 999, s)
     all_semesters = sorted(list({c["semester"] for c in courses if c.get("semester")}), key=sem_sort_key)
 
-    # A. Landing page (site/content/_index.md)
     landing_page = site_dir / "content" / "_index.md"
     generate_landing_page(landing_page, courses, all_schools, all_semesters)
 
-    # B. Category and Course pages
     cat_weight = 10
     for cat_id, cat_info in categories.items():
         cat_dir = content_docs_dir / cat_id
@@ -296,12 +287,10 @@ def build_all(root_dir: Path, site_dir: Path, base_url: str = None, run_hugo: bo
             generate_course_page(cat_dir, c, course_weight)
             course_weight += 10
 
-    # C. Docs root (_index.md)
     generate_docs_index(content_docs_dir)
 
     print(f"[OK] Generated pages for {len(courses)} courses")
 
-    # 3. Build Hugo if requested
     if run_hugo:
         hugo_bin = shutil.which("hugo") or str(Path.home() / ".local" / "bin" / "hugo")
         if not Path(hugo_bin).is_file() and not shutil.which(hugo_bin):

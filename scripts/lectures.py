@@ -27,20 +27,17 @@ class Lecture:
             with open(self.file_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
-            # 1. Look for #lesson("Title", date: "...")
             lesson_match = re.search(r'#lesson\(\s*["\']([^"\']+)["\'](?:\s*,\s*date:\s*["\']([^"\']+)["\'])?', content)
             if lesson_match:
                 title = lesson_match.group(1)
                 if lesson_match.group(2):
                     date_str = lesson_match.group(2)
 
-            # 2. If not found, look for top-level heading = Title
             if not title:
                 heading_match = re.search(r'^\s*=\s+([^\n]+)', content, re.MULTILINE)
                 if heading_match:
                     title = heading_match.group(1).strip()
 
-            # 3. Look for explicit date: "DD.MM.YYYY" or DD.MM.YYYY
             if not date_str:
                 date_match = re.search(r'(\d{2}\.\d{2}\.\d{4})', content)
                 if date_match:
@@ -64,7 +61,6 @@ class Lecture:
         if is_gui_editor or not TERMINAL:
             cmd = [EDITOR, str(self.file_path)]
         else:
-            # Terminal based editor like nvim/vim
             if "alacritty" in TERMINAL:
                 cmd = [TERMINAL, "-e", EDITOR, str(self.file_path)]
             elif "foot" in TERMINAL:
@@ -96,7 +92,6 @@ class Lectures(list):
         self.lessons_dir.mkdir(parents=True, exist_ok=True)
         (self.root / "figures").mkdir(parents=True, exist_ok=True)
 
-        # 1. Symlink template.typ
         template_symlink = self.root / "template.typ"
         if not template_symlink.exists() and TEMPLATE_PATH.exists():
             try:
@@ -105,7 +100,6 @@ class Lectures(list):
             except Exception:
                 pass
 
-        # 2. Create main.typ if missing
         if not self.master_file.exists():
             course_title = self.course.title
             course_short = self.course.short
@@ -117,16 +111,12 @@ class Lectures(list):
   author: "{AUTHOR}",
 )
 
-// ==============================================================================
-// LEKTIONEN
-// ==============================================================================
 """
             self.master_file.write_text(content, encoding="utf-8")
 
     def new_lecture(self, title: str = None, date_str: str = None) -> Lecture:
         self.ensure_course_setup()
 
-        # Determine next number
         existing_numbers = [l.number for l in self]
         next_num = max(existing_numbers, default=0) + 1
 
@@ -138,18 +128,15 @@ class Lectures(list):
         filename = f"lesson_{next_num:02d}.typ"
         file_path = self.lessons_dir / filename
 
-        # Minimal lesson template
         lesson_content = f"""#import "../template.typ": *
 
 #lesson("{title}", date: "{date_str}")
 
 == Einführung
 
-// Notizen hier einfügen...
 """
         file_path.write_text(lesson_content, encoding="utf-8")
 
-        # Append include in main.typ if not present
         include_stmt = f'#include "lessons/{filename}"'
         master_content = self.master_file.read_text(encoding="utf-8")
         if include_stmt not in master_content:
@@ -158,7 +145,6 @@ class Lectures(list):
                     f.write("\n")
                 f.write(f"{include_stmt}\n")
 
-        # Refresh
         self.clear()
         self.extend(self.read_files())
 
@@ -179,12 +165,6 @@ class Lectures(list):
     def open_viewer(self):
         self.ensure_course_setup()
         pdf_path = self.master_file.with_suffix(".pdf")
-        
-        # Compile once first
         subprocess.run(["typst", "compile", "--root", str(BASE_DIR), str(self.master_file), str(pdf_path)], cwd=str(self.root))
-        
-        # Start typst watch in background
         subprocess.Popen(["typst", "watch", "--root", str(BASE_DIR), str(self.master_file), str(pdf_path)], cwd=str(self.root))
-        
-        # Open viewer
         subprocess.Popen([PDF_VIEWER, str(pdf_path)], cwd=str(self.root))

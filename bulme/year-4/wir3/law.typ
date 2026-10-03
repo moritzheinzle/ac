@@ -1,5 +1,3 @@
-// Recht & Gesetz Callouts für WIR3 (Wirtschaft und Recht)
-
 #let law(num, statute: "", title: "", body) = {
   let header = if title != "" {
     [#title (§ #num #statute)]

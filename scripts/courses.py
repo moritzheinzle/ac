@@ -77,7 +77,6 @@ class Courses(list):
         courses = []
         seen = set()
 
-        # 1. Primary configured root
         if ROOT.is_dir():
             for p in ROOT.iterdir():
                 if p.is_dir() and not p.name.startswith(".") and p.name not in ["lessons", "figures", "scripts"]:
@@ -86,7 +85,6 @@ class Courses(list):
                         seen.add(res)
                         courses.append(Course(res))
 
-        # 2. Extensible search across other branches (e.g. bulme/year-5, tug/...)
         for base in [BASE_DIR / "bulme", BASE_DIR / "tug"]:
             if base.is_dir():
                 for p in base.rglob("*"):
@@ -106,7 +104,6 @@ class Courses(list):
             for c in self:
                 if c.path == resolved:
                     return c
-            # If path resolved to a directory not in current list
             if resolved.is_dir():
                 return Course(resolved)
         if len(self) > 0:
