@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="38.364578mm"
+   height="51.127514mm"
+   viewBox="0 0 38.364578 51.127514"
+   version="1.1"
+   id="svg_castel_typst"
+   sodipodi:docname="ode.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs_castel">
+    <style
+       type="text/css"
+       id="style1">
+      text {
+        font-family: &quot;Libertinus Serif&quot;, &quot;Linux Libertine&quot;, &quot;DejaVu Serif&quot;, serif;
+        font-size: 11pt;
+        fill: #1a202c;
+      }
+      path, circle, rect, line {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <sodipodi:namedview
+     id="namedview_castel"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1.0"
+     inkscape:pageopacity="1.0"
+     inkscape:pageshadow="0"
+     inkscape:zoom="1.8"
+     inkscape:cx="302.22222"
+     inkscape:cy="188.05556"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showborder="true"
+     units="mm"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-width="1440"
+     inkscape:window-height="926"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid_castel"
+       units="mm"
+       spacingx="5"
+       spacingy="5"
+       empspacing="5"
+       color="#2b6cb0"
+       opacity="0.15"
+       empcolor="#2b6cb0"
+       empopacity="0.35"
+       originx="-43.950232"
+       originy="-19.255786" />
+  </sodipodi:namedview>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-43.950233,-19.255787)">
+    <rect
+       style="fill:#000000;stroke-width:0.264583"
+       id="rect1"
+       width="24.547453"
+       height="19.402779"
+       x="43.950233"
+       y="30.427082" />
+    <rect
+       style="fill:#000000;stroke-width:0.264583"
+       id="rect2"
+       width="11.318287"
+       height="11.024305"
+       x="59.678242"
+       y="24.694445" />
+    <rect
+       style="fill:#000000;stroke-width:0.264583"
+       id="rect3"
+       width="3.2337964"
+       height="4.4097219"
+       x="70.408562"
+       y="23.077545" />
+    <rect
+       style="fill:#000000;stroke-width:0.264583"
+       id="rect4"
+       width="1.9108796"
+       height="4.4097219"
+       x="74.5243"
+       y="22.930555" />
+    <rect
+       style="fill:#000000;stroke-width:0.264583"
+       id="rect5"
+       width="17.197916"
+       height="19.84375"
+       x="65.116898"
+       y="19.255787" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 59.678241,70.261574 73.49537,64.381943"
+       id="path5"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 48.359954,60.266204 15.728008,8.819443"
+       id="path6"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
