@@ -10,6 +10,6 @@
   "pdf_url": null,
   "pdf_size": "-",
   "pdf_mtime": "-",
-  "weight": 70
+  "weight": 80
 }
 

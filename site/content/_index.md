@@ -94,6 +94,20 @@
       "pdf_mtime": "03.10.2026"
     },
     {
+      "name": "nw2-ph",
+      "short": "NW2-PH",
+      "title": "Physik",
+      "school": "BULME",
+      "semester": "Semester 8",
+      "category_id": "bulme-sem-8",
+      "category_title": "BULME (Semester 8)",
+      "course_url": "docs/bulme-sem-8/nw2-ph/",
+      "has_pdf": true,
+      "pdf_url": "pdfs/bulme-sem-8/nw2-ph/main.pdf",
+      "pdf_size": "16.1 KB",
+      "pdf_mtime": "03.10.2026"
+    },
+    {
       "name": "pbe3",
       "short": "PBE3",
       "title": "Prototypenbau elektronischer Systeme",
