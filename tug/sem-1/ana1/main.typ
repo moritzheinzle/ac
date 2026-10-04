@@ -3,7 +3,7 @@
 #show: project.with(
   title: "Analysis 1",
   course: "ANA1",
-  author: "Moritz Heinzle",
+  author: "Heinzle Moritz",
 )
 
 = Introduction to Analysis

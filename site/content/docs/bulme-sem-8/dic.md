@@ -6,14 +6,18 @@
   "semester": "Semester 8",
   "category_id": "bulme-sem-8",
   "category_title": "BULME (Semester 8)",
-  "has_pdf": false,
-  "pdf_url": null,
-  "pdf_size": "-",
-  "pdf_mtime": "-",
+  "has_pdf": true,
+  "pdf_url": "pdfs/bulme-sem-8/dic/main.pdf",
+  "pdf_size": "12.5 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 30,
   "info": {
     "title": "Digitaltechnik",
-    "short": "DIC"
-  }
+    "short": "DIC",
+    "course": "DIC",
+    "author": "Heinzle Moritz"
+  },
+  "course": "DIC",
+  "author": "Heinzle Moritz"
 }
 

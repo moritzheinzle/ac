@@ -1,8 +1,8 @@
 #import "template.typ": *
 
 #show: project.with(
-  title: "Hardwareentwicklung",
-  course: "HWE",
+  title: "Digitaltechnik",
+  course: "DIC",
   author: "Heinzle Moritz",
 )
 

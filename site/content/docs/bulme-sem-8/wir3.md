@@ -8,12 +8,16 @@
   "category_title": "BULME (Semester 8)",
   "has_pdf": true,
   "pdf_url": "pdfs/bulme-sem-8/wir3/main.pdf",
-  "pdf_size": "50.9 KB",
-  "pdf_mtime": "03.10.2026",
+  "pdf_size": "13.3 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 90,
   "info": {
     "title": "Wirtschaft und Recht",
-    "short": "WIR3"
-  }
+    "short": "WIR3",
+    "course": "WIR3",
+    "author": "Heinzle Moritz"
+  },
+  "course": "WIR3",
+  "author": "Heinzle Moritz"
 }
 

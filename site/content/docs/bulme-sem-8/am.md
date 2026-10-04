@@ -8,14 +8,18 @@
   "category_title": "BULME (Semester 8)",
   "has_pdf": true,
   "pdf_url": "pdfs/bulme-sem-8/am/main.pdf",
-  "pdf_size": "33.6 KB",
-  "pdf_mtime": "03.10.2026",
+  "pdf_size": "13.4 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 10,
   "info": {
     "title": "Angewandte Mathematik",
     "short": "AM",
-    "teacher": "Harrich Tanja"
+    "teacher": "Harrich Tanja",
+    "course": "AM",
+    "author": "Heinzle Moritz"
   },
-  "teacher": "Harrich Tanja"
+  "teacher": "Harrich Tanja",
+  "course": "AM",
+  "author": "Heinzle Moritz"
 }
 

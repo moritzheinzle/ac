@@ -8,12 +8,16 @@
   "category_title": "BULME (Semester 8)",
   "has_pdf": true,
   "pdf_url": "pdfs/bulme-sem-8/nw2-ph/main.pdf",
-  "pdf_size": "16.1 KB",
-  "pdf_mtime": "03.10.2026",
+  "pdf_size": "12.3 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 70,
   "info": {
     "title": "Physik",
-    "short": "NW2-PH"
-  }
+    "short": "NW2-PH",
+    "course": "NW2-PH",
+    "author": "Heinzle Moritz"
+  },
+  "course": "NW2-PH",
+  "author": "Heinzle Moritz"
 }
 

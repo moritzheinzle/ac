@@ -3,9 +3,7 @@
 #show: project.with(
   title: "Physik",
   course: "NW2-PH",
-  author: "Moritz Heinzle",
+  author: "Heinzle Moritz",
 )
 
-= Physik
 
-Vorlesungsmitschrift und Notizen für Physik (NW2-PH).

@@ -6,14 +6,18 @@
   "semester": "Semester 8",
   "category_id": "bulme-sem-8",
   "category_title": "BULME (Semester 8)",
-  "has_pdf": false,
-  "pdf_url": null,
-  "pdf_size": "-",
-  "pdf_mtime": "-",
+  "has_pdf": true,
+  "pdf_url": "pdfs/bulme-sem-8/fsst/main.pdf",
+  "pdf_size": "13.9 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 40,
   "info": {
     "title": "Fachspezifische Softwaretechnik",
-    "short": "FSST"
-  }
+    "short": "FSST",
+    "course": "FSST",
+    "author": "Heinzle Moritz"
+  },
+  "course": "FSST",
+  "author": "Heinzle Moritz"
 }
 

@@ -6,4 +6,3 @@
   author: "Moritz",
 )
 
-#include "lessons/lesson_01.typ"

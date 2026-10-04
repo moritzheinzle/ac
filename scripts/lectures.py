@@ -121,7 +121,7 @@ class Lectures(list):
         next_num = max(existing_numbers, default=0) + 1
 
         if not title:
-            title = f"Lektion {next_num}"
+            title = f"Lecture {next_num}"
         if not date_str:
             date_str = datetime.today().strftime(DATE_FORMAT)
 
@@ -132,7 +132,7 @@ class Lectures(list):
 
 #lesson("{title}", date: "{date_str}")
 
-== Einführung
+== Introduction
 
 """
         file_path.write_text(lesson_content, encoding="utf-8")

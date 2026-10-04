@@ -8,12 +8,16 @@
   "category_title": "BULME (Semester 8)",
   "has_pdf": true,
   "pdf_url": "pdfs/bulme-sem-8/auro/main.pdf",
-  "pdf_size": "20.2 KB",
-  "pdf_mtime": "03.10.2026",
+  "pdf_size": "14.0 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 20,
   "info": {
     "title": "Robotics and Autonomous Systems",
-    "short": "AURO"
-  }
+    "short": "AURO",
+    "course": "AURO",
+    "author": "Heinzle Moritz"
+  },
+  "course": "AURO",
+  "author": "Heinzle Moritz"
 }
 

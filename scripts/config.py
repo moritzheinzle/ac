@@ -22,6 +22,6 @@ EDITOR = os.environ.get("EDITOR", "nvim")
 PDF_VIEWER = os.environ.get("PDF_VIEWER", "zathura")
 
 DATE_FORMAT = "%d.%m.%Y"
-AUTHOR = "Moritz"
+AUTHOR = "Heinzle Moritz"
 SCHOOL = "BULME"
 CLASS = "4AHET"

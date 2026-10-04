@@ -1,8 +1,8 @@
 #import "template.typ": *
 
 #show: project.with(
-  title: "Hardwareentwicklung",
-  course: "HWE",
+  title: "Geografie und Politische Bildung",
+  course: "GP",
   author: "Heinzle Moritz",
 )
 

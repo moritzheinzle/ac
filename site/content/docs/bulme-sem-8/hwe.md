@@ -8,12 +8,16 @@
   "category_title": "BULME (Semester 8)",
   "has_pdf": true,
   "pdf_url": "pdfs/bulme-sem-8/hwe/main.pdf",
-  "pdf_size": "56.8 KB",
-  "pdf_mtime": "03.10.2026",
+  "pdf_size": "13.4 KB",
+  "pdf_mtime": "04.10.2026",
   "weight": 60,
   "info": {
     "title": "Hardwareentwicklung",
-    "short": "HWE"
-  }
+    "short": "HWE",
+    "course": "HWE",
+    "author": "Heinzle Moritz"
+  },
+  "course": "HWE",
+  "author": "Heinzle Moritz"
 }
 

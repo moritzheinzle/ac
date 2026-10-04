@@ -20,8 +20,8 @@
       "course_url": "docs/bulme-sem-8/am/",
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/am/main.pdf",
-      "pdf_size": "33.6 KB",
-      "pdf_mtime": "03.10.2026",
+      "pdf_size": "13.4 KB",
+      "pdf_mtime": "04.10.2026",
       "teacher": "Harrich Tanja"
     },
     {
@@ -35,8 +35,8 @@
       "course_url": "docs/bulme-sem-8/auro/",
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/auro/main.pdf",
-      "pdf_size": "20.2 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_size": "14.0 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "dic",
@@ -47,10 +47,10 @@
       "category_id": "bulme-sem-8",
       "category_title": "BULME (Semester 8)",
       "course_url": "docs/bulme-sem-8/dic/",
-      "has_pdf": false,
-      "pdf_url": null,
-      "pdf_size": "-",
-      "pdf_mtime": "-"
+      "has_pdf": true,
+      "pdf_url": "pdfs/bulme-sem-8/dic/main.pdf",
+      "pdf_size": "12.5 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "fsst",
@@ -61,10 +61,10 @@
       "category_id": "bulme-sem-8",
       "category_title": "BULME (Semester 8)",
       "course_url": "docs/bulme-sem-8/fsst/",
-      "has_pdf": false,
-      "pdf_url": null,
-      "pdf_size": "-",
-      "pdf_mtime": "-"
+      "has_pdf": true,
+      "pdf_url": "pdfs/bulme-sem-8/fsst/main.pdf",
+      "pdf_size": "13.9 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "gp",
@@ -75,10 +75,10 @@
       "category_id": "bulme-sem-8",
       "category_title": "BULME (Semester 8)",
       "course_url": "docs/bulme-sem-8/gp/",
-      "has_pdf": false,
-      "pdf_url": null,
-      "pdf_size": "-",
-      "pdf_mtime": "-"
+      "has_pdf": true,
+      "pdf_url": "pdfs/bulme-sem-8/gp/main.pdf",
+      "pdf_size": "13.8 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "hwe",
@@ -91,8 +91,8 @@
       "course_url": "docs/bulme-sem-8/hwe/",
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/hwe/main.pdf",
-      "pdf_size": "56.8 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_size": "13.4 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "nw2-ph",
@@ -105,8 +105,8 @@
       "course_url": "docs/bulme-sem-8/nw2-ph/",
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/nw2-ph/main.pdf",
-      "pdf_size": "16.1 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_size": "12.3 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "pbe3",
@@ -117,10 +117,10 @@
       "category_id": "bulme-sem-8",
       "category_title": "BULME (Semester 8)",
       "course_url": "docs/bulme-sem-8/pbe3/",
-      "has_pdf": false,
-      "pdf_url": null,
-      "pdf_size": "-",
-      "pdf_mtime": "-"
+      "has_pdf": true,
+      "pdf_url": "pdfs/bulme-sem-8/pbe3/main.pdf",
+      "pdf_size": "14.3 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "wir3",
@@ -133,8 +133,8 @@
       "course_url": "docs/bulme-sem-8/wir3/",
       "has_pdf": true,
       "pdf_url": "pdfs/bulme-sem-8/wir3/main.pdf",
-      "pdf_size": "50.9 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_size": "13.3 KB",
+      "pdf_mtime": "04.10.2026"
     },
     {
       "name": "ana1",
@@ -147,10 +147,10 @@
       "course_url": "docs/tug-sem-1/ana1/",
       "has_pdf": true,
       "pdf_url": "pdfs/tug-sem-1/ana1/main.pdf",
-      "pdf_size": "16.0 KB",
-      "pdf_mtime": "03.10.2026"
+      "pdf_size": "15.9 KB",
+      "pdf_mtime": "04.10.2026"
     }
   ],
-  "last_updated": "03.10.2026"
+  "last_updated": "04.10.2026"
 }
 
