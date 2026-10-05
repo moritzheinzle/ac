@@ -4,5 +4,6 @@
 #show: project.with(
   title: "Angewandte Mathematik",
   course: "AM",
-  author: "Heinzle Moritz",
+author: "Heinzle Moritz",
 )
+#include "lessons/lesson_01.typ"
