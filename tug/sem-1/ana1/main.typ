@@ -65,3 +65,4 @@ Gleiche Cantoren darf man vertauschen.
 Für alle Kinder gibt es eine Süßigkeit die das Kind mag.$(forall... exists...)$ Es gibt eine Süßigkeit die alle Kinder mögen. $(exists... forall ...)$ 
 
 Unterschiedliche Cantoren dar man nicht vertauschen.
+#include "lessons/lesson_01.typ"

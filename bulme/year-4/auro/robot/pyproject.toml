@@ -1,0 +1,19 @@
+[project]
+name = "robot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Moritz Heinzle", email = "moritz.heinzle@bulme.at" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "matplotlib>=3.11.2",
+]
+
+[project.scripts]
+robot = "robot:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"

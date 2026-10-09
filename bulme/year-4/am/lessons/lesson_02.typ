@@ -4,7 +4,7 @@
 
 
 
-5.29
+5.29 )
 $ p(h) = p_0 dot e^(-h/H) $
 
 Wobei: $quad$ $p_0 = 1013 #text("hPa") quad H = 7991 #text("m")$ \
@@ -43,4 +43,6 @@ $
 TR: solve
 
 $h = 2293.8$ m
+
+5.31)
 
