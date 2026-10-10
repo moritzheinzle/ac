@@ -1,5 +1,6 @@
 #import "../template.typ": *
 #import "../math.typ"
+#pagebreak()
 #lesson([HÜ $->$ 12.10.2026], date: "06.10.2026")
 
 
@@ -10,10 +11,10 @@ $ p(h) = p_0 dot e^(-h/H) $
 Wobei: $quad$ $p_0 = 1013 #text("hPa") quad H = 7991 #text("m")$ \
 === a) // Linearisier die Funktion um $h = 0$ m 
 
-Dafür nehmen wir das Taylor-Polynom 1.Grades: 
+Taylor-Polynom 1.Grades: 
 $ s(h) = p(h_0) + (p'(h_0))/(1!) dot x $
 
-Die Ableitung läßt sich mithilfe der Kettenregeln berechnen:
+Ableitung:
 $  (dif p)/(dif h) &= p_0 dot e^(-h/H) dot (-1/H) $
 
 Für $h = 0$ fällt der $e$ Term auf 1 also weg: 
@@ -40,9 +41,8 @@ $ |d(h)| &= 0.05  \
   -[(1- h/H) dot e^(h/H) - 1] &= 0.05
 $
 
-TR: solve
 
-$h = 2293.8$ m
+$ h = 2293.8m $ 
 
 == 5.31)
 $ f(x) = 1 / sqrt(L dot (C + x)) = (L dot (C + x))^(-1/2) $
@@ -50,10 +50,10 @@ $ f(x) = 1 / sqrt(L dot (C + x)) = (L dot (C + x))^(-1/2) $
 Wobei: $quad L = 0.2 #text("H") quad C = 50 #text("µF") = 50 dot 10^(-6) #text("F")$ \
 === a) // Linearisier die Funktion um $x = 0$
 
-Dafür nehmen wir das Taylor-Polynom 1.Grades:
+Taylor-Polynom 1.Grades:
 $ s(x) = f(x_0) + (f'(x_0))/(1!) dot x $
 
-Die Ableitung läßt sich mithilfe der Kettenregel berechnen:
+Ableitung:
 $ (dif f)/(dif x) &= -1/2 dot (L dot (C + x))^(-3/2) dot L \
   &= - L / (2 dot (L dot (C + x))^(3/2))
 $
@@ -81,7 +81,7 @@ $ d &= |(s(x) - f(x))/f(x)| \
     &= |(309.91 - 310.09)/310.09| approx 0.058 %
 $
 
-Die Näherung weicht um weniger als 0.1% ab und ist daher sehr gut.
+Die Näherung weicht um weniger als 0.1% ab.
 
 
 == 5.39)
@@ -90,7 +90,7 @@ $ i(t) = U_0 / R dot e^(-t/tau) $
 Wobei: $quad U_0 = 100 #text("V") quad R = 2 #text("k")$#text("Ω") $ = 2000 #text("Ω") quad tau = 0.2 #text("s")$ \
 $ I_0 = U_0 / R = 100 / 2000 = 0.05 #text("A") $
 
-Die Ableitung läßt sich mithilfe der Kettenregel berechnen:
+Ableitung:
 $ (dif i)/(dif t) = - I_0/tau dot e^(-t/tau) $
 
 === a) // Linearisier die Stromstärke zum Zeitpunkt $t = 0$ s
@@ -115,7 +115,7 @@ $ s_b (t) &= i(tau) + i'(tau) dot (t - tau) \
   s_b (t) &= 0.01839 - 0.09197 dot (t - 0.2)
 $
 
-c) Zeige die Nullstellen der linearisierten Funktionen
+=== c) //Zeige die Nullstellen der linearisierten Funktionen
 
 Fall a):
 $ s_a (t) &= 0 \
